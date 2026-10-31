@@ -9,7 +9,9 @@
 
   async function fromSupabase() {
     const base = cfg.supabaseUrl.replace(/\/$/, '');
-    const headers = { apikey: cfg.supabaseAnonKey, Authorization: 'Bearer ' + cfg.supabaseAnonKey };
+    // legacy anon keys are JWTs (eyJ...) and go in both headers; new publishable keys (sb_publishable_...) only in apikey
+    const headers = { apikey: cfg.supabaseAnonKey };
+    if (/^eyJ/.test(cfg.supabaseAnonKey)) headers.Authorization = 'Bearer ' + cfg.supabaseAnonKey;
     const [catsRes, groupsRes] = await Promise.all([
       fetch(base + '/rest/v1/menu_categories?select=*,menu_items(*)&order=sort.asc&menu_items.order=sort.asc', { headers }),
       fetch(base + '/rest/v1/menu_option_groups?select=*&order=sort.asc', { headers })
