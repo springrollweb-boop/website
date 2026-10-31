@@ -468,8 +468,7 @@ contact = head('Contact Us | Spring Roll Station', 'Visit Spring Roll Station at
           <select id="f-topic" name="topic"><option>General enquiry</option><option>Catering and bulk orders</option><option>Feedback</option><option>Partnership</option></select></div>
         <div><label for="f-msg">Message</label><textarea id="f-msg" name="message" required></textarea></div>
         <div class="form__actions">
-          <button class="btn btn--primary" type="submit">{IC['mail']} Send by email</button>
-          <button class="btn btn--wa" type="button" id="form-wa" aria-expanded="false" aria-controls="wa-pick">{IC['wa']} Send on WhatsApp</button>
+          <button class="btn btn--wa" type="submit" id="form-wa" aria-expanded="false" aria-controls="wa-pick">{IC['wa']} Send on WhatsApp</button>
         </div>
         <div class="wa-pick" id="wa-pick" hidden>
           <p class="wa-pick__label">Which outlet would you like to message?</p>
@@ -496,10 +495,8 @@ contact = head('Contact Us | Spring Roll Station', 'Visit Spring Roll Station at
 (function(){{
   var f=document.getElementById('contact-form'); if(!f) return;
   function body(){{ return 'Name: '+f.name.value+'\\nContact: '+f.contact.value+'\\nTopic: '+f.topic.value+'\\n\\n'+f.message.value; }}
-  f.addEventListener('submit',function(e){{ e.preventDefault(); if(!f.reportValidity()) return;
-    location.href='mailto:director@springrollstation.com.sg?subject='+encodeURIComponent('[Website] '+f.topic.value+' from '+f.name.value)+'&body='+encodeURIComponent(body()); }});
   var waBtn=document.getElementById('form-wa'), pick=document.getElementById('wa-pick');
-  waBtn.addEventListener('click',function(){{ if(!f.reportValidity()) return;
+  f.addEventListener('submit',function(e){{ e.preventDefault(); if(!f.reportValidity()) return;
     pick.hidden=!pick.hidden; waBtn.setAttribute('aria-expanded', String(!pick.hidden)); if(!pick.hidden) pick.querySelector('button').focus(); }});
   pick.addEventListener('click',function(e){{ var b=e.target.closest('[data-phone]'); if(!b) return;
     window.open('https://wa.me/'+b.dataset.phone+'?text='+encodeURIComponent('Hi '+b.dataset.outlet+',\\n'+body()),'_blank','noopener');
