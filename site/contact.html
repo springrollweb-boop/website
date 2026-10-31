@@ -12,7 +12,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,0..100&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=1793463675">
+<script>document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.add('rv-ready')},4000)</script>
+<link rel="stylesheet" href="css/style.css?v=1793466318">
 
 </head>
 <body><header class="nav nav--solid">
@@ -87,9 +88,15 @@
         <div><label for="f-msg">Message</label><textarea id="f-msg" name="message" required></textarea></div>
         <div class="form__actions">
           <button class="btn btn--primary" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> Send by email</button>
-          <button class="btn btn--wa" type="button" id="form-wa"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg> Send on WhatsApp</button>
+          <button class="btn btn--wa" type="button" id="form-wa" aria-expanded="false" aria-controls="wa-pick"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg> Send on WhatsApp</button>
         </div>
-        <p class="form__hint">Email opens in your mail app addressed to director@springrollstation.com.sg. WhatsApp goes to our Novena outlet.</p>
+        <div class="wa-pick" id="wa-pick" hidden>
+          <p class="wa-pick__label">Which outlet would you like to message?</p>
+          <div class="wa-pick__options">
+            <button type="button" class="wa-pick__btn" data-phone="6588019189" data-outlet="Spring Roll Station (Novena)"><b>Novena</b><span>8801 9189</span></button>
+            <button type="button" class="wa-pick__btn" data-phone="6580170610" data-outlet="Spring Roll Station (Skysuites at Anson)"><b>Skysuites at Anson</b><span>8017 0610</span></button>
+          </div>
+        </div>
       </form>
     </div>
     <div class="contact-aside reveal">
@@ -137,7 +144,7 @@
   </div>
   <button class="wa-float__btn" type="button" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></button>
 </div>
-<script src="js/main.js?v=1793463675"></script>
+<script src="js/main.js?v=1793466318"></script>
 <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
 <script>
 (function(){
@@ -145,8 +152,12 @@
   function body(){ return 'Name: '+f.name.value+'\nContact: '+f.contact.value+'\nTopic: '+f.topic.value+'\n\n'+f.message.value; }
   f.addEventListener('submit',function(e){ e.preventDefault(); if(!f.reportValidity()) return;
     location.href='mailto:director@springrollstation.com.sg?subject='+encodeURIComponent('[Website] '+f.topic.value+' from '+f.name.value)+'&body='+encodeURIComponent(body()); });
-  document.getElementById('form-wa').addEventListener('click',function(){ if(!f.reportValidity()) return;
-    window.open('https://wa.me/6588019189?text='+encodeURIComponent('Hi Spring Roll Station,\n'+body()),'_blank','noopener'); });
+  var waBtn=document.getElementById('form-wa'), pick=document.getElementById('wa-pick');
+  waBtn.addEventListener('click',function(){ if(!f.reportValidity()) return;
+    pick.hidden=!pick.hidden; waBtn.setAttribute('aria-expanded', String(!pick.hidden)); if(!pick.hidden) pick.querySelector('button').focus(); });
+  pick.addEventListener('click',function(e){ var b=e.target.closest('[data-phone]'); if(!b) return;
+    window.open('https://wa.me/'+b.dataset.phone+'?text='+encodeURIComponent('Hi '+b.dataset.outlet+',\n'+body()),'_blank','noopener');
+    pick.hidden=true; waBtn.setAttribute('aria-expanded','false'); });
 })();
 </script>
 </body>

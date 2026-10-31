@@ -37,6 +37,7 @@ def head(title, desc, extra=''):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,0..100&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');setTimeout(function(){{document.documentElement.classList.add('rv-ready')}},4000)</script>
 <link rel="stylesheet" href="css/style.css?v=VER">
 {extra}
 </head>
@@ -468,9 +469,15 @@ contact = head('Contact Us | Spring Roll Station', 'Visit Spring Roll Station at
         <div><label for="f-msg">Message</label><textarea id="f-msg" name="message" required></textarea></div>
         <div class="form__actions">
           <button class="btn btn--primary" type="submit">{IC['mail']} Send by email</button>
-          <button class="btn btn--wa" type="button" id="form-wa">{IC['wa']} Send on WhatsApp</button>
+          <button class="btn btn--wa" type="button" id="form-wa" aria-expanded="false" aria-controls="wa-pick">{IC['wa']} Send on WhatsApp</button>
         </div>
-        <p class="form__hint">Email opens in your mail app addressed to director@springrollstation.com.sg. WhatsApp goes to our Novena outlet.</p>
+        <div class="wa-pick" id="wa-pick" hidden>
+          <p class="wa-pick__label">Which outlet would you like to message?</p>
+          <div class="wa-pick__options">
+            <button type="button" class="wa-pick__btn" data-phone="{NOVENA['phone']}" data-outlet="{NOVENA['full']}"><b>Novena</b><span>{NOVENA['disp']}</span></button>
+            <button type="button" class="wa-pick__btn" data-phone="{SKY['phone']}" data-outlet="{SKY['full']}"><b>Skysuites at Anson</b><span>{SKY['disp']}</span></button>
+          </div>
+        </div>
       </form>
     </div>
     <div class="contact-aside reveal">
@@ -491,8 +498,12 @@ contact = head('Contact Us | Spring Roll Station', 'Visit Spring Roll Station at
   function body(){{ return 'Name: '+f.name.value+'\\nContact: '+f.contact.value+'\\nTopic: '+f.topic.value+'\\n\\n'+f.message.value; }}
   f.addEventListener('submit',function(e){{ e.preventDefault(); if(!f.reportValidity()) return;
     location.href='mailto:director@springrollstation.com.sg?subject='+encodeURIComponent('[Website] '+f.topic.value+' from '+f.name.value)+'&body='+encodeURIComponent(body()); }});
-  document.getElementById('form-wa').addEventListener('click',function(){{ if(!f.reportValidity()) return;
-    window.open('https://wa.me/{NOVENA['phone']}?text='+encodeURIComponent('Hi Spring Roll Station,\\n'+body()),'_blank','noopener'); }});
+  var waBtn=document.getElementById('form-wa'), pick=document.getElementById('wa-pick');
+  waBtn.addEventListener('click',function(){{ if(!f.reportValidity()) return;
+    pick.hidden=!pick.hidden; waBtn.setAttribute('aria-expanded', String(!pick.hidden)); if(!pick.hidden) pick.querySelector('button').focus(); }});
+  pick.addEventListener('click',function(e){{ var b=e.target.closest('[data-phone]'); if(!b) return;
+    window.open('https://wa.me/'+b.dataset.phone+'?text='+encodeURIComponent('Hi '+b.dataset.outlet+',\\n'+body()),'_blank','noopener');
+    pick.hidden=true; waBtn.setAttribute('aria-expanded','false'); }});
 }})();
 </script>
 </body>

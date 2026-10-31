@@ -90,6 +90,8 @@
       </div>
     </section>`).join('');
 
+  if (window.srsReveal) window.srsReveal(root);
+
   navWrap.innerHTML = MENU.map((c) => `<a href="#${c.id}" data-cat="${c.id}">${esc(c.title)}</a>`).join('');
 
   root.addEventListener('click', (e) => {

@@ -385,11 +385,14 @@ body.has-cart .wa-float{bottom:92px}
 .contact-card p,.contact-card a{color:var(--ink-2);font-size:.95rem}
 .contact-card a:hover{color:var(--red)}
 
-/* reveal */
-.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;transition-delay:var(--rd,0s)}
-.js .reveal--x{transform:translateX(-36px)}
-.js .reveal.is-in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+/* scroll animations (see main.js): hidden until in view, replay every time */
+.js:not(.rv-ready) main,.js:not(.rv-ready) .footer{opacity:0}
+.js .rv{opacity:0;transition:opacity .6s ease,transform .7s cubic-bezier(.2,.8,.25,1);transition-delay:var(--rd,0s)}
+.js .rv--text{transform:translateY(22px)}
+.js .rv--card{transform:translateY(-44px);transition:opacity .55s ease,transform .75s cubic-bezier(.22,.9,.3,1.18);transition-delay:var(--rd,0s)}
+.js .rv.is-in{opacity:1;transform:none}
+.js .rv:not(.is-in){transition:none}
+@media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}}
 
 /* ===== Google reviews marquee ===== */
 .reviews{background:var(--cream);overflow:hidden;padding-bottom:clamp(56px,7vw,96px)}
@@ -528,3 +531,14 @@ body.is-preloading{overflow:hidden}
 .platform__stars i.part::after{content:"";position:absolute;top:0;right:0;bottom:0;width:30%;background:#E5DCC3;mix-blend-mode:lighten}
 .platform__name{font-weight:800;margin-top:6px}
 .platform small{color:var(--ink-3);font-size:.8rem;font-weight:700}
+
+/* contact form: pick an outlet for WhatsApp */
+.wa-pick{background:var(--cream);border-radius:16px;padding:16px;margin-top:4px;animation:waPick .25s ease}
+@keyframes waPick{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.wa-pick__label{font-weight:800;font-size:.9rem;margin-bottom:10px}
+.wa-pick__options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wa-pick__btn{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px 16px;border-radius:14px;background:#fff;border:2px solid rgba(37,211,102,.35);text-align:left;transition:.2s}
+.wa-pick__btn:hover{border-color:var(--wa);background:#f2fdf5}
+.wa-pick__btn b{font-size:.95rem}
+.wa-pick__btn span{font-size:.82rem;color:var(--ink-2)}
+@media (max-width:480px){.wa-pick__options{grid-template-columns:1fr}}

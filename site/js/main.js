@@ -30,27 +30,56 @@
     document.addEventListener('click', (e) => { if (!wa.contains(e.target)) wa.classList.remove('is-open'); });
   }
 
-  /* ---------- reveal on scroll ---------- */
-  const revealEls = [...document.querySelectorAll('.reveal')];
-  // cards in the same grid fade in one after another
-  revealEls.forEach((el) => {
-    const siblings = [...el.parentElement.children].filter((c) => c.classList.contains('reveal'));
-    if (siblings.length > 1) { el.classList.add('reveal--x'); el.style.setProperty('--rd', (Math.min(siblings.indexOf(el), 8) * 0.14) + 's'); }
-  });
-  const showNear = () => {            // fail safe: anything near the viewport is shown
-    const limit = window.innerHeight * 1.6;
-    revealEls.forEach((el) => { if (!el.classList.contains('is-in') && el.getBoundingClientRect().top < limit) el.classList.add('is-in'); });
-  };
-  if ('IntersectionObserver' in window && revealEls.length) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
-    }, { threshold: 0.05, rootMargin: '0px 0px 10% 0px' });
-    revealEls.forEach((el) => io.observe(el));
-    window.addEventListener('scroll', showNear, { passive: true });
-    setTimeout(showNear, 900);
-  } else {
-    revealEls.forEach((el) => el.classList.add('is-in'));
+  /* ---------- scroll animations: everything fades in each time it comes into view ----------
+     Cards (grid items) drop in as a queue; headings, text, buttons and photos rise and fade in.
+     Whatever enters the screen together is staggered top to bottom, left to right.
+     Once something is fully off screen it resets, so it plays again next time. */
+  const reduceAll = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SKIP = '.nav, .wa-float, .cart, .cart-overlay, .cart-fab, .imodal, .preloader, .wheel, .hero-bg, .page-hero__bowl, .page-hero__photos, .menu-nav, .marquee, .strip';
+  const CARDS = '.card, .outlet, .feature, .platform, .item, .contact-card, .split__img, .form';
+  const TEXT = '.eyebrow, h1, h2, h3, h4, p, .btn, address, .hours, .gscore, .map, .menu-note, .footer .brand, .footer li, .footer__bottom > span, .hero-sub';
+  // old wrapper-level reveals are replaced by per-element animation
+  document.querySelectorAll('.reveal').forEach((el) => el.classList.remove('reveal'));
+
+  let rvIO = null;
+  function tag(scope) {
+    const root = scope || document;
+    const found = [];
+    root.querySelectorAll(CARDS).forEach((el) => {
+      if (el.closest(SKIP) || el.classList.contains('rv')) return;
+      if (el.parentElement && el.parentElement.closest(CARDS)) return;          // not a card inside a card
+      el.classList.add('rv', 'rv--card'); found.push(el);
+    });
+    root.querySelectorAll(TEXT).forEach((el) => {
+      if (el.closest(SKIP) || el.classList.contains('rv')) return;
+      if (el.closest('.rv--card')) return;                                      // the whole card animates instead
+      if (el.parentElement && el.parentElement.closest('.rv--text')) return;    // not text inside animated text
+      el.classList.add('rv', 'rv--text'); found.push(el);
+    });
+    return found;
   }
+  function start(els) {
+    if (reduceAll || !('IntersectionObserver' in window)) { els.forEach((el) => el.classList.add('is-in')); return; }
+    if (!rvIO) {
+      rvIO = new IntersectionObserver((entries) => {
+        const entering = entries.filter((en) => en.intersectionRatio >= 0.15 && !en.target.classList.contains('is-in'))
+          .sort((a, b) => (a.boundingClientRect.top - b.boundingClientRect.top) || (a.boundingClientRect.left - b.boundingClientRect.left));
+        let ci = 0, ti = 0;
+        entering.forEach((en) => {
+          const card = en.target.classList.contains('rv--card');
+          const delay = card ? Math.min(ci++, 8) * 0.12 : Math.min(ti++, 8) * 0.08;
+          en.target.style.setProperty('--rd', delay + 's');
+          en.target.classList.add('is-in');
+        });
+        entries.forEach((en) => { if (!en.isIntersecting) en.target.classList.remove('is-in'); });
+      }, { threshold: [0, 0.15] });
+    }
+    els.forEach((el) => rvIO.observe(el));
+  }
+  window.srsReveal = (scope) => start(tag(scope));   // menu.js calls this after drawing the menu
+  const firstEls = tag(document);
+  const go = () => { document.documentElement.classList.add('rv-ready'); start(firstEls); };
+  if (document.getElementById('preloader') && !reduceAll) setTimeout(go, 2600); else go();
 
   /* ---------- menu header bowl: swaps to the next bowl every 6 seconds ---------- */
   const heroBowl = document.querySelector('.page-hero__bowl');
