@@ -55,8 +55,13 @@
   /* ---------- menu header bowl: swaps to the next bowl every 6 seconds ---------- */
   const heroBowl = document.querySelector('.page-hero__bowl');
   if (heroBowl && heroBowl.children.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    let bi = 0; const imgs = [...heroBowl.children];
-    setInterval(() => { bi = (bi + 1) % imgs.length; imgs.forEach((im, k) => im.classList.toggle('is-active', k === bi)); }, 6000);
+    let bi = 0; const slots = [...heroBowl.children];
+    setInterval(() => {
+      const old = slots[bi]; bi = (bi + 1) % slots.length; const next = slots[bi];
+      old.classList.remove('is-active'); old.classList.add('is-leaving');          // rolls down and out
+      next.classList.remove('is-leaving'); void next.offsetWidth; next.classList.add('is-active'); // rolls in from above
+      setTimeout(() => { old.classList.add('no-anim'); old.classList.remove('is-leaving'); void old.offsetWidth; old.classList.remove('no-anim'); }, 1300);
+    }, 6000);
   }
 
   /* ---------- hero photo slideshow (contact page) ---------- */

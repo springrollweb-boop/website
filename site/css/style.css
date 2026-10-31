@@ -487,8 +487,11 @@ body.is-preloading{overflow:hidden}
 /* ===== rotating bowl in the menu page header ===== */
 .page-hero--menu::after{display:none}
 .page-hero__bowl{position:absolute;right:clamp(24px,6vw,110px);top:50%;width:400px;height:400px;transform:translateY(-50%);z-index:0;pointer-events:none;filter:drop-shadow(0 22px 30px rgba(90,60,10,.25))}
-.page-hero__bowl img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;animation:bowlSpin 60s linear infinite;opacity:0;transition:opacity 1s ease}
-.page-hero__bowl img.is-active{opacity:1}
+.page-hero__bowl span{position:absolute;inset:0;opacity:0;transform:translateY(-140%) rotate(-220deg);transition:transform 1.15s cubic-bezier(.35,0,.25,1),opacity .4s ease}
+.page-hero__bowl span.is-active{opacity:1;transform:none}
+.page-hero__bowl span.is-leaving{opacity:0;transform:translateY(140%) rotate(220deg);transition:transform 1.05s cubic-bezier(.55,0,.85,.45),opacity .5s ease .55s}
+.page-hero__bowl span.no-anim{transition:none}
+.page-hero__bowl img{width:100%;height:100%;object-fit:contain;animation:bowlSpin 60s linear infinite}
 .page-hero--menu .wrap{max-width:none}
 .page-hero--menu h1,.page-hero--menu p{max-width:640px}
 @media (max-width:1100px){.page-hero__bowl{width:300px;height:300px;right:16px}}

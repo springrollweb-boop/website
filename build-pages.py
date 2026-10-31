@@ -400,7 +400,7 @@ about = head('About Us | Spring Roll Station', 'The story of Spring Roll Station
 menu = head('Menu | Spring Roll Station', 'Full menu with prices: phở, bánh mì, fresh spring rolls, mains, Vietnamese coffee, teas and drinks. No GST, no service charge. Order for collection on WhatsApp.') + nav('menu', solid=True) + f'''
 <main>
 <section class="page-hero page-hero--menu">
-  <div class="page-hero__bowl" aria-hidden="true"><img class="is-active" src="assets/bowls/beef.webp" alt="" draggable="false"><img src="assets/bowls/chicken.webp" alt="" draggable="false"><img src="assets/bowls/ribeye.webp" alt="" draggable="false"><img src="assets/bowls/prawn.webp" alt="" draggable="false"></div>
+  <div class="page-hero__bowl" aria-hidden="true"><span class="is-active"><img src="assets/bowls/beef.webp" alt="" draggable="false"></span><span class=""><img src="assets/bowls/chicken.webp" alt="" draggable="false"></span><span class=""><img src="assets/bowls/ribeye.webp" alt="" draggable="false"></span><span class=""><img src="assets/bowls/prawn.webp" alt="" draggable="false"></span></div>
   <div class="wrap">
     <p class="eyebrow">Our menu</p>
     <h1>The price you see is<br>the price you pay</h1>
