@@ -15,8 +15,8 @@ IC = {
  'ig': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
 }
 
-NOVENA = dict(key='novena', name='Novena', full='Spring Roll Station (Novena)', addr1='275 Thomson Road #01-26', addr2='Novena Regency, Singapore 307645', hours='Open daily, 10:00am to 12:00 midnight', phone='6588019189', disp='8801 9189', q='275+Thomson+Road+%2301-26+Novena+Regency+Singapore+307645', reviews='https://maps.app.goo.gl/sTt1KpUs1vbNK59u8', tag='Original recipes, new neighbourhood')
-SKY = dict(key='skysuites', name='Skysuites at Anson', full='Spring Roll Station (Skysuites at Anson)', addr1='8 Enggor Street #01-01/02', addr2='Skysuites at Anson, Singapore 079718', hours='Open daily, 10:00am to 10:00pm', phone='6580170610', disp='8017 0610', q='8+Enggor+Street+%2301-01+Skysuites+at+Anson+Singapore+079718', reviews='https://maps.app.goo.gl/LiJCAaeC4BiWTcBX6', tag='Casual cafe style dining in Tanjong Pagar')
+NOVENA = dict(key='novena', name='Novena', full='Spring Roll Station (Novena)', addr1='275 Thomson Road #01-26', addr2='Novena Regency, Singapore 307645', hours='Open daily, 10:00am to 12:00 midnight', phone='6588019189', disp='8801 9189', q='275+Thomson+Road+%2301-26+Novena+Regency+Singapore+307645', reviews='https://maps.app.goo.gl/sTt1KpUs1vbNK59u8', tag='Original recipes, new neighbourhood', photo='novena-1.jpg')
+SKY = dict(key='skysuites', name='Skysuites at Anson', full='Spring Roll Station (Skysuites at Anson)', addr1='8 Enggor Street #01-01/02', addr2='Skysuites at Anson, Singapore 079718', hours='Open daily, 10:00am to 10:00pm', phone='6580170610', disp='8017 0610', q='8+Enggor+Street+%2301-01+Skysuites+at+Anson+Singapore+079718', reviews='https://maps.app.goo.gl/LiJCAaeC4BiWTcBX6', tag='Casual cafe style dining in Tanjong Pagar', photo='skysuites-1.jpg')
 
 def head(title, desc, extra=''):
     return f'''<!DOCTYPE html>
@@ -103,6 +103,7 @@ def footer():
 def outlet_card(o, with_map=False):
     m = f'''<div class="map"><iframe title="Map of {o['full']}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q={o['q']}&output=embed"></iframe></div>''' if with_map else ''
     return f'''<article class="outlet reveal">
+  <div class="outlet__photo"><img src="assets/outlet/{o['photo']}" alt="{o['full']} storefront" loading="lazy"></div>
   <span class="tag">{o['tag']}</span>
   <h3>{o['full']}</h3>
   <address>{o['addr1']}<br>{o['addr2']}</address>
@@ -114,6 +115,27 @@ def outlet_card(o, with_map=False):
     <a class="btn btn--ghost btn--sm" href="https://www.google.com/maps/dir/?api=1&destination={o['q']}" target="_blank" rel="noopener">{IC['pin']} Directions</a>
   </div>
 </article>'''
+
+
+SLIDES = [
+  ('novena-1.jpg', NOVENA, 'Novena Regency storefront'),
+  ('novena-2.jpg', NOVENA, 'Dining room at Novena'),
+  ('novena-3.jpg', NOVENA, 'Seating and drinks chiller at Novena'),
+  ('skysuites-1.jpg', SKY, 'Skysuites at Anson storefront'),
+  ('skysuites-2.jpg', SKY, 'Cafe seating at Skysuites at Anson'),
+  ('skysuites-3.jpg', SKY, 'Pink and mint dining room at Skysuites at Anson'),
+  ('skysuites-4.jpg', SKY, 'The kitchen at Skysuites at Anson'),
+]
+def outlet_slider():
+    slides = ''.join(f'''<figure class="slide"><img src="assets/outlet/{img}" alt="{cap}" loading="{'eager' if i == 0 else 'lazy'}" draggable="false">
+      <figcaption><span class="slide__tag">{o['name']}</span><strong>{o['full']}</strong><span>{o['addr1']}, {o['addr2']}</span></figcaption></figure>''' for i, (img, o, cap) in enumerate(SLIDES))
+    dots = ''.join(f'<button type="button" data-go="{i}" aria-label="Photo {i+1}"></button>' for i in range(len(SLIDES)))
+    return f'''<div class="slider" id="outlet-slider" aria-label="Our two outlets">
+  <div class="slider__track">{slides}</div>
+  <button class="slider__btn slider__btn--prev" type="button" aria-label="Previous photo">{IC['chevL']}</button>
+  <button class="slider__btn slider__btn--next" type="button" aria-label="Next photo">{IC['chevR']}</button>
+  <div class="slider__dots">{dots}</div>
+</div>'''
 
 def cta():
     return f'''<section class="cta section--tight">
@@ -246,7 +268,7 @@ home = head('Spring Roll Station | Vietnamese Restaurant in Singapore', 'Authent
 
 <section class="section" style="background:var(--cream)">
   <div class="wrap split">
-    <div class="split__img split__img--tall reveal"><img src="assets/outlet/storefront.jpg" alt="Spring Roll Station outlet with guests enjoying bánh mì and coffee" loading="lazy"></div>
+    <div class="split__img split__img--tall reveal"><img src="assets/outlet/skysuites-1.jpg" alt="Spring Roll Station at Skysuites at Anson" loading="lazy"></div>
     <div class="reveal">
       <p class="eyebrow">Our story</p>
       <h2>Vietnamese at heart, made for Singapore</h2>
@@ -293,7 +315,7 @@ about = head('About Us | Spring Roll Station', 'The story of Spring Roll Station
 
 <section class="section">
   <div class="wrap split">
-    <div class="split__img split__img--tall reveal"><img src="assets/outlet/storefront.jpg" alt="Guests enjoying bánh mì and coffee outside Spring Roll Station" loading="lazy"></div>
+    <div class="split__img split__img--tall reveal"><img src="assets/outlet/novena-1.jpg" alt="Spring Roll Station at Novena Regency" loading="lazy"></div>
     <div class="reveal">
       <p class="eyebrow">Our story</p>
       <h2>A simple idea, served generously</h2>
@@ -354,7 +376,7 @@ about = head('About Us | Spring Roll Station', 'The story of Spring Roll Station
 menu = head('Menu | Spring Roll Station', 'Full menu with prices: phở, bánh mì, fresh spring rolls, mains, Vietnamese coffee, teas and drinks. No GST, no service charge. Order for collection on WhatsApp.') + nav('menu', solid=True) + f'''
 <main>
 <section class="page-hero page-hero--menu">
-  <div class="page-hero__bowl" aria-hidden="true"><img src="assets/bowls/beef.webp" alt="" draggable="false"></div>
+  <div class="page-hero__bowl" aria-hidden="true"><img class="is-active" src="assets/bowls/beef.webp" alt="" draggable="false"><img src="assets/bowls/chicken.webp" alt="" draggable="false"><img src="assets/bowls/ribeye.webp" alt="" draggable="false"><img src="assets/bowls/prawn.webp" alt="" draggable="false"></div>
   <div class="wrap">
     <p class="eyebrow">Our menu</p>
     <h1>The price you see is<br>the price you pay</h1>
@@ -419,7 +441,11 @@ contact = head('Contact Us | Spring Roll Station', 'Visit Spring Roll Station at
   </div>
 </section>
 
-<section class="section">
+<section class="section--tight slider-section">
+  <div class="wrap">{outlet_slider()}</div>
+</section>
+
+<section class="section" style="padding-top:0">
   <div class="wrap">
     <div class="outlets">
       {outlet_card(NOVENA, True)}

@@ -52,6 +52,33 @@
     revealEls.forEach((el) => el.classList.add('is-in'));
   }
 
+  /* ---------- menu header bowl: swaps to the next bowl every 6 seconds ---------- */
+  const heroBowl = document.querySelector('.page-hero__bowl');
+  if (heroBowl && heroBowl.children.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let bi = 0; const imgs = [...heroBowl.children];
+    setInterval(() => { bi = (bi + 1) % imgs.length; imgs.forEach((im, k) => im.classList.toggle('is-active', k === bi)); }, 6000);
+  }
+
+  /* ---------- photo sliders ---------- */
+  document.querySelectorAll('.slider').forEach((sl) => {
+    const track = sl.querySelector('.slider__track');
+    const slides = [...track.children];
+    const dots = [...sl.querySelectorAll('.slider__dots button')];
+    let i = 0, timer;
+    const go = (n) => { i = (n + slides.length) % slides.length; track.style.transform = `translateX(-${i * 100}%)`; dots.forEach((d, k) => d.classList.toggle('is-active', k === i)); };
+    const restart = () => { clearInterval(timer); timer = setInterval(() => go(i + 1), 5000); };
+    sl.querySelector('.slider__btn--prev').addEventListener('click', () => { go(i - 1); restart(); });
+    sl.querySelector('.slider__btn--next').addEventListener('click', () => { go(i + 1); restart(); });
+    dots.forEach((d) => d.addEventListener('click', () => { go(+d.dataset.go); restart(); }));
+    let sx = 0, sy = 0;
+    sl.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    sl.addEventListener('touchend', (e) => { const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { go(dx < 0 ? i + 1 : i - 1); restart(); } }, { passive: true });
+    sl.addEventListener('mouseenter', () => clearInterval(timer));
+    sl.addEventListener('mouseleave', restart);
+    go(0);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) restart();
+  });
+
   /* ---------- the phở wheel ---------- */
   const hero = document.getElementById('hero');
   const wheel = document.getElementById('wheel');
