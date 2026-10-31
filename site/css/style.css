@@ -380,6 +380,7 @@ body.has-cart .wa-float{bottom:92px}
 
 /* reveal */
 .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;transition-delay:var(--rd,0s)}
+.js .reveal--x{transform:translateX(-36px)}
 .js .reveal.is-in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 

@@ -35,7 +35,7 @@
   // cards in the same grid fade in one after another
   revealEls.forEach((el) => {
     const siblings = [...el.parentElement.children].filter((c) => c.classList.contains('reveal'));
-    if (siblings.length > 1) el.style.setProperty('--rd', (Math.min(siblings.indexOf(el), 8) * 0.13) + 's');
+    if (siblings.length > 1) { el.classList.add('reveal--x'); el.style.setProperty('--rd', (Math.min(siblings.indexOf(el), 8) * 0.14) + 's'); }
   });
   const showNear = () => {            // fail safe: anything near the viewport is shown
     const limit = window.innerHeight * 1.6;
