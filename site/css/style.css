@@ -395,7 +395,7 @@ body.has-cart .wa-float{bottom:92px}
 .reviews{background:var(--cream);overflow:hidden;padding-bottom:clamp(56px,7vw,96px)}
 .reviews__head{max-width:680px;margin:0 auto clamp(32px,5vw,56px);text-align:center}
 .reviews__head h2{margin:10px 0 14px}
-.gscore{display:inline-flex;align-items:center;gap:16px;margin-top:26px;background:#fff;border-radius:999px;padding:12px 26px 12px 16px;box-shadow:var(--shadow-sm);text-align:left}
+.gscore{display:inline-flex;align-items:center;gap:16px;margin-top:26px;text-align:left}
 .gscore .g-logo{width:40px;height:40px;flex:none}
 .gscore__row{display:flex;align-items:center;gap:10px}
 .gscore b{font-family:var(--font-display);font-size:2rem;font-weight:500;line-height:1}
@@ -425,7 +425,7 @@ body.has-cart .wa-float{bottom:92px}
 .rcard footer b{font-weight:800;font-size:.92rem}
 .rcard footer span{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--ink-3)}
 @media (prefers-reduced-motion:reduce){.marquee__track{animation:none}.marquee{overflow-x:auto;mask-image:none;-webkit-mask-image:none}}
-@media (max-width:600px){.gscore{padding:10px 18px 10px 12px;gap:12px}.gscore b{font-size:1.6rem}.rcard{width:300px;padding:18px 18px 16px}.marquee__track{animation-duration:55s}}
+@media (max-width:600px){.gscore{gap:12px}.gscore b{font-size:1.6rem}.rcard{width:300px;padding:18px 18px 16px}.marquee__track{animation-duration:55s}}
 
 /* ===== home page intro: the logo rolls in, pauses, rolls away and takes the cover with it ===== */
 body.is-preloading{overflow:hidden}

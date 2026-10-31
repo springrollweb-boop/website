@@ -173,13 +173,11 @@ def reviews_section():
         {GOOGLE_G}
         <div>
           <div class="gscore__row"><b>4.7</b><span class="stars stars--lg" aria-label="4.7 out of 5 stars"><i class="on">{STAR}</i><i class="on">{STAR}</i><i class="on">{STAR}</i><i class="on">{STAR}</i><i class="on part">{STAR}</i></span></div>
-          <small>40 Google reviews, Novena</small>
+          <small>40 Google reviews</small>
         </div>
       </div>
       <div class="reviews__actions">
         <a class="btn btn--ghost btn--sm" href="{NOVENA['reviews']}" target="_blank" rel="noopener">Write a review</a>
-        <a class="link-arrow" href="{NOVENA['reviews']}" target="_blank" rel="noopener">Read all on Google {IC['arrow']}</a>
-        <a class="link-arrow" href="{SKY['reviews']}" target="_blank" rel="noopener">Skysuites at Anson on Google {IC['arrow']}</a>
       </div>
     </div>
   </div>
