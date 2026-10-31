@@ -26,7 +26,22 @@
     if (error) { err.textContent = 'Could not sign in. Check the email and password.'; err.hidden = false; return; }
   });
   $('#logout').addEventListener('click', () => sb.auth.signOut());
-  sb.auth.onAuthStateChange((_ev, session) => { if (session) { show('app'); loadAll(); } else { show('login'); } });
+
+  // only accounts on the admin list (public.cms_admins) get into the manager
+  let entered = false;
+  async function enter(session) {
+    if (!session) { entered = false; show('login'); return; }
+    if (entered) return;
+    const { data: ok, error } = await sb.rpc('is_cms_admin');
+    if (error && !/is_cms_admin|function/i.test(error.message || '')) { fail(error); }
+    if (!error && ok !== true) {
+      await sb.auth.signOut();
+      const err = $('#login-error'); err.textContent = 'This account is not allowed to edit the menu.'; err.hidden = false;
+      show('login'); return;
+    }
+    entered = true; show('app'); loadAll();
+  }
+  sb.auth.onAuthStateChange((_ev, session) => { setTimeout(() => enter(session), 0); });
 
   /* ---------- state ---------- */
   let cats = [], items = [], groups = [], activeCat = null;
@@ -284,5 +299,5 @@
   });
 
   /* ---------- start ---------- */
-  sb.auth.getSession().then(({ data }) => { if (data.session) { show('app'); loadAll(); } else show('login'); });
+  sb.auth.getSession().then(({ data }) => enter(data.session));
 })();

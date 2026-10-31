@@ -1,6 +1,6 @@
 -- Spring Roll Station menu CMS
--- Run this once in the Supabase SQL editor of the project (Dashboard > SQL Editor > New query > Run).
--- It creates the tables, the public read / staff write rules, and the photo bucket.
+-- Run this once in the Supabase SQL editor of the project (Dashboard > SQL Editor > New query > Run),
+-- then run admins.sql, which limits all changes to the emails on the admin list.
 
 create extension if not exists pgcrypto;
 
