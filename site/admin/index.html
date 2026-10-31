@@ -5,18 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Menu Manager | Spring Roll Station</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,0..100&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="/admin/admin.css">
 </head>
 <body>
 
 <!-- Setup notice: shown until config.js has the Supabase keys -->
 <div class="screen" id="screen-setup" hidden>
   <div class="card card--narrow">
-    <img class="logo" src="../assets/logo.webp" alt="">
+    <img class="logo" src="/assets/logo.webp" alt="">
     <h1>Menu Manager</h1>
     <p>This manager is not connected to a database yet. Add the Supabase project URL and anon key to <code>js/config.js</code>, run <code>supabase/schema.sql</code> in the project, and create a staff login under Authentication.</p>
   </div>
@@ -25,7 +25,7 @@
 <!-- Login -->
 <div class="screen" id="screen-login" hidden>
   <form class="card card--narrow" id="login-form">
-    <img class="logo" src="../assets/logo.webp" alt="">
+    <img class="logo" src="/assets/logo.webp" alt="">
     <h1>Menu Manager</h1>
     <p class="muted">Sign in to update the Spring Roll Station menu.</p>
     <label>Email<input type="email" name="email" required autocomplete="username"></label>
@@ -38,14 +38,14 @@
 <!-- App -->
 <div class="app" id="screen-app" hidden>
   <header class="topbar">
-    <a class="brand" href="../"><img src="../assets/logo.webp" alt=""><span>Menu Manager</span></a>
+    <a class="brand" href="/"><img src="/assets/logo.webp" alt=""><span>Menu Manager</span></a>
     <nav class="tabs">
       <button type="button" class="tab is-active" data-tab="menu">Menu</button>
       <button type="button" class="tab" data-tab="groups">Add-on groups</button>
       <button type="button" class="tab" data-tab="help">Help</button>
     </nav>
     <div class="topbar__right">
-      <a class="btn btn--ghost btn--sm" href="../menu" target="_blank" rel="noopener">View website</a>
+      <a class="btn btn--ghost btn--sm" href="/menu" target="_blank" rel="noopener">View website</a>
       <button class="btn btn--sm" type="button" id="logout">Sign out</button>
     </div>
   </header>
@@ -180,8 +180,8 @@
 <div class="toast" id="toast" hidden></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.js"></script>
-<script src="../js/config.js"></script>
-<script src="../js/menu-data.js"></script>
-<script src="admin.js"></script>
+<script src="/js/config.js"></script>
+<script src="/js/menu-data.js"></script>
+<script src="/admin/admin.js"></script>
 </body>
 </html>

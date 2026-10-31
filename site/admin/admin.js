@@ -7,7 +7,7 @@
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const money = (n) => '$' + Number(n || 0).toFixed(2);
   const slugify = (s) => String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60) || 'item';
-  const imgSrc = (u) => !u ? '' : /^https?:\/\//.test(u) ? u : '../assets/menu/' + u;
+  const imgSrc = (u) => !u ? '' : /^https?:\/\//.test(u) ? u : '/assets/menu/' + u;
 
   const screens = { setup: $('#screen-setup'), login: $('#screen-login'), app: $('#screen-app') };
   const show = (k) => Object.entries(screens).forEach(([n, el]) => { el.hidden = n !== k; });
