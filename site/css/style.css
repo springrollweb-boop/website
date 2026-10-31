@@ -220,7 +220,9 @@ h3{font-size:1.45rem;line-height:1.2}
 .map{border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:16/10;background:var(--yellow-3);margin-top:6px}
 .map iframe{width:100%;height:100%;border:0;display:block}
 
-.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media (max-width:900px){.features{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.features{grid-template-columns:1fr}}
 .feature{background:var(--cream);border-radius:var(--radius);padding:28px;border:1px solid rgba(58,36,22,.06)}
 .feature__num{font-family:var(--font-display);font-size:2.2rem;color:var(--red);line-height:1}
 .feature h3{margin:12px 0 8px;font-size:1.25rem}
@@ -377,7 +379,7 @@ body.has-cart .wa-float{bottom:92px}
 .contact-card a:hover{color:var(--red)}
 
 /* reveal */
-.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;transition-delay:var(--rd,0s)}
 .js .reveal.is-in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 
