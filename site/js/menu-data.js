@@ -182,7 +182,6 @@
     },
     {
       id: 'drinks', title: 'Drinks', vn: 'Đồ uống', blurb: 'Cold drinks to go with your meal.',
-      compact: true,
       items: [
         { id: 'dr-coconut', name: 'Young Coconut Juice with Pulp', price: 3.20, img: 'drink-coconut.jpg' },
         { id: 'dr-coke', name: 'Coca-Cola', price: 2.90, img: 'drink-coke.jpg' },

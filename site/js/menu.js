@@ -75,14 +75,6 @@
       </div>
     </article>`;
   }
-  function rowCard(it) {
-    return `<article class="item item--row" data-item="${it.id}" id="${it.id}">
-      <button class="item__thumb" type="button" data-open="${it.id}" aria-label="View ${esc(it.name)}"><img src="assets/menu/${esc(it.img)}" alt="" loading="lazy" onerror="this.style.display='none'"></button>
-      <div class="item__body"><div class="item__title"><h3>${esc(it.name)}</h3><span class="item__price">${money(it.price)}</span></div></div>
-      <div class="item__foot">${footHTML(it.id)}</div>
-    </article>`;
-  }
-
   root.innerHTML = MENU.map((cat) => `
     <section class="menu-section" id="${cat.id}">
       <div class="wrap">
@@ -90,7 +82,7 @@
           <div><p class="eyebrow">${esc(cat.vn || '')}</p><h2>${esc(cat.title)}</h2>${cat.blurb ? `<p>${esc(cat.blurb)}</p>` : ''}</div>
           ${cat.note ? `<span class="menu-note">${LEAF}${esc(cat.note)}</span>` : ''}
         </div>
-        <div class="items${cat.compact ? ' items--rows' : ''}">${cat.items.map(cat.compact ? rowCard : itemCard).join('')}</div>
+        <div class="items">${cat.items.map(itemCard).join('')}</div>
       </div>
     </section>`).join('');
 
