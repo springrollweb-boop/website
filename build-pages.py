@@ -485,7 +485,6 @@ contact = head('Contact Us | Spring Roll Station', 'Visit Spring Roll Station at
   </div>
 </section>
 
-{cta()}
 </main>
 ''' + footer() + f'''
 <script>
