@@ -158,7 +158,7 @@
     if (name) msg += `\nName: ${name}`;
     if (when) msg += `\nCollection time: ${when}`;
     if (notes) msg += `\nNotes: ${notes}`;
-    msg += '\n\nSent from springrollstation.com.sg';
+    msg += '\n\nSent from springrollstation.com';
     window.open(`https://wa.me/${o.phone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
   });
 
