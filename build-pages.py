@@ -15,6 +15,10 @@ IC = {
  'ig': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
 }
 
+GRAB_URL = 'https://food.grab.com/sg/en/restaurant/spring-roll-station-novena-regency-delivery/4-C62XRJ5GNT2KHA'
+FOODPANDA_URL = 'https://www.foodpanda.sg/restaurant/uqc0/spring-roll-station-novena-uqc0'
+FOODPANDA_REVIEWS = 'https://www.foodpanda.sg/restaurant/uqc0/spring-roll-station-novena-uqc0/reviews'
+
 NOVENA = dict(key='novena', name='Novena', full='Spring Roll Station (Novena)', addr1='275 Thomson Road #01-26', addr2='Novena Regency, Singapore 307645', hours='Open daily, 10:00am to 12:00 midnight', phone='6588019189', disp='8801 9189', q='275+Thomson+Road+%2301-26+Novena+Regency+Singapore+307645', reviews='https://maps.app.goo.gl/sTt1KpUs1vbNK59u8', tag='Original recipes, new neighbourhood', photo='novena-1.jpg')
 SKY = dict(key='skysuites', name='Skysuites at Anson', full='Spring Roll Station (Skysuites at Anson)', addr1='8 Enggor Street #01-01/02', addr2='Skysuites at Anson, Singapore 079718', hours='Open daily, 10:00am to 10:00pm', phone='6580170610', disp='8017 0610', q='8+Enggor+Street+%2301-01+Skysuites+at+Anson+Singapore+079718', reviews='https://maps.app.goo.gl/LiJCAaeC4BiWTcBX6', tag='Casual cafe style dining in Tanjong Pagar', photo='skysuites-1.jpg')
 
@@ -117,25 +121,10 @@ def outlet_card(o, with_map=False):
 </article>'''
 
 
-SLIDES = [
-  ('novena-1.jpg', NOVENA, 'Novena Regency storefront'),
-  ('novena-2.jpg', NOVENA, 'Dining room at Novena'),
-  ('novena-3.jpg', NOVENA, 'Seating and drinks chiller at Novena'),
-  ('skysuites-1.jpg', SKY, 'Skysuites at Anson storefront'),
-  ('skysuites-2.jpg', SKY, 'Cafe seating at Skysuites at Anson'),
-  ('skysuites-3.jpg', SKY, 'Pink and mint dining room at Skysuites at Anson'),
-  ('skysuites-4.jpg', SKY, 'The kitchen at Skysuites at Anson'),
-]
-def outlet_slider():
-    slides = ''.join(f'''<figure class="slide"><img src="assets/outlet/{img}" alt="{cap}" loading="{'eager' if i == 0 else 'lazy'}" draggable="false">
-      <figcaption><span class="slide__tag">{o['name']}</span><strong>{o['full']}</strong><span>{o['addr1']}, {o['addr2']}</span></figcaption></figure>''' for i, (img, o, cap) in enumerate(SLIDES))
-    dots = ''.join(f'<button type="button" data-go="{i}" aria-label="Photo {i+1}"></button>' for i in range(len(SLIDES)))
-    return f'''<div class="slider" id="outlet-slider" aria-label="Our two outlets">
-  <div class="slider__track">{slides}</div>
-  <button class="slider__btn slider__btn--prev" type="button" aria-label="Previous photo">{IC['chevL']}</button>
-  <button class="slider__btn slider__btn--next" type="button" aria-label="Next photo">{IC['chevR']}</button>
-  <div class="slider__dots">{dots}</div>
-</div>'''
+
+HERO_PHOTOS = ['novena-1.jpg', 'skysuites-1.jpg', 'novena-2.jpg', 'skysuites-3.jpg', 'novena-3.jpg', 'skysuites-2.jpg', 'skysuites-4.jpg']
+def hero_photos():
+    return '<div class="page-hero__photos" aria-hidden="true">' + ''.join(f'<img src="assets/outlet/{p}" alt="" class="{"is-active" if i == 0 else ""}" loading="{"eager" if i < 2 else "lazy"}">' for i, p in enumerate(HERO_PHOTOS)) + '</div>'
 
 def cta():
     return f'''<section class="cta section--tight">
@@ -339,6 +328,41 @@ about = head('About Us | Spring Roll Station', 'The story of Spring Roll Station
 
 <section class="section">
   <div class="wrap">
+    <div class="section-head center reveal">
+      <p class="eyebrow">Loved on every platform</p>
+      <h2>Rated by the people who eat with us</h2>
+      <p>Our Novena outlet on Google, GrabFood and foodpanda. Order delivery from either app, or come in and skip the fees.</p>
+    </div>
+    <div class="platforms">
+      <a class="platform reveal" href="{NOVENA['reviews']}" target="_blank" rel="noopener">
+        <span class="platform__logo platform__logo--google">G</span>
+        <b>4.7</b><span class="platform__stars">{''.join('<i class="on">' + STAR + '</i>' for _ in range(4))}<i class="on part">{STAR}</i></span>
+        <span class="platform__name">Google</span><small>40 reviews</small>
+        <span class="link-arrow">Read reviews {IC['arrow']}</span>
+      </a>
+      <a class="platform reveal" href="{FOODPANDA_REVIEWS}" target="_blank" rel="noopener">
+        <span class="platform__logo platform__logo--panda">foodpanda</span>
+        <b>4.9</b><span class="platform__stars">{''.join('<i class="on">' + STAR + '</i>' for _ in range(5))}</span>
+        <span class="platform__name">foodpanda</span><small>154 ratings</small>
+        <span class="link-arrow">Read reviews {IC['arrow']}</span>
+      </a>
+      <a class="platform reveal" href="{GRAB_URL}" target="_blank" rel="noopener">
+        <span class="platform__logo platform__logo--grab">Grab</span>
+        <b>4.7</b><span class="platform__stars">{''.join('<i class="on">' + STAR + '</i>' for _ in range(4))}<i class="on part">{STAR}</i></span>
+        <span class="platform__name">GrabFood</span><small>Novena Regency</small>
+        <span class="link-arrow">Order on Grab {IC['arrow']}</span>
+      </a>
+    </div>
+    <div class="platforms__order reveal">
+      <span>Prefer delivery?</span>
+      <a class="btn btn--dark btn--sm" href="{GRAB_URL}" target="_blank" rel="noopener">Order on GrabFood</a>
+      <a class="btn btn--dark btn--sm" href="{FOODPANDA_URL}" target="_blank" rel="noopener">Order on foodpanda</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow">What makes us different</p>
       <h2>Quality food, ample portions, warm hospitality</h2>
@@ -381,6 +405,7 @@ menu = head('Menu | Spring Roll Station', 'Full menu with prices: phở, bánh m
     <p class="eyebrow">Our menu</p>
     <h1>The price you see is<br>the price you pay</h1>
     <p>No GST. No service charge. Pick your favourites, then send your order to the outlet of your choice on WhatsApp for self collection. Dine in and take away are always welcome.</p>
+    <div class="hero-links"><span>Delivery:</span><a href="{GRAB_URL}" target="_blank" rel="noopener">GrabFood {IC['arrow']}</a><a href="{FOODPANDA_URL}" target="_blank" rel="noopener">foodpanda {IC['arrow']}</a></div>
   </div>
 </section>
 <div class="menu-nav"><div class="wrap" id="menu-nav"></div></div>
@@ -424,7 +449,9 @@ menu = head('Menu | Spring Roll Station', 'Full menu with prices: phở, bánh m
   </div>
 </aside>
 ''' + footer() + '''
+<script src="js/config.js?v=VER"></script>
 <script src="js/menu-data.js?v=VER"></script>
+<script src="js/menu-source.js?v=VER"></script>
 <script src="js/menu.js?v=VER"></script>
 </body>
 </html>
@@ -433,7 +460,8 @@ menu = head('Menu | Spring Roll Station', 'Full menu with prices: phở, bánh m
 # ---------------- CONTACT ----------------
 contact = head('Contact Us | Spring Roll Station', 'Visit Spring Roll Station at Novena Regency or Skysuites at Anson. Opening hours, maps, WhatsApp and phone numbers.') + nav('contact', solid=True) + f'''
 <main>
-<section class="page-hero">
+<section class="page-hero page-hero--photos">
+  {hero_photos()}
   <div class="wrap">
     <p class="eyebrow">Contact us</p>
     <h1>Two outlets.<br>Equally loved.</h1>
@@ -441,11 +469,7 @@ contact = head('Contact Us | Spring Roll Station', 'Visit Spring Roll Station at
   </div>
 </section>
 
-<section class="section--tight slider-section">
-  <div class="wrap">{outlet_slider()}</div>
-</section>
-
-<section class="section" style="padding-top:0">
+<section class="section">
   <div class="wrap">
     <div class="outlets">
       {outlet_card(NOVENA, True)}

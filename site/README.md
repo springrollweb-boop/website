@@ -51,3 +51,16 @@ python3 build-pages.py
 ```
 
 You can also edit the HTML files directly if you prefer; just keep the four headers and footers in step.
+
+## Menu Manager (CMS)
+
+The restaurant updates the menu at `/admin` (for example https://www.springrollstation.com/admin). It is a static page that talks to a Supabase project: sign in with email and password, then add or edit sections, items, prices, photos, badges, sold out flags and add-on groups. Changes show on the website immediately.
+
+Setting it up for a new Supabase project:
+
+1. Create the project at supabase.com, then open SQL Editor, paste the contents of `../supabase/schema.sql` and run it. This creates the tables, the access rules and the `menu` photo bucket.
+2. In Authentication, turn off public sign ups (Providers > Email > disable "Allow new users to sign up") and add the restaurant's login under Users > Add user (email and password, confirm the email).
+3. In Project Settings > API, copy the Project URL and the anon public key into `site/js/config.js`, then push.
+4. Open `/admin`, sign in, and click "Import current menu" once to load the menu from `js/menu-data.js` into the database.
+
+Until the keys are filled in, the website keeps showing the menu from `js/menu-data.js`, and `/admin` shows a setup notice. If Supabase is ever unreachable, the website falls back to that file as well.

@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,0..100&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=1793459748">
+<link rel="stylesheet" href="css/style.css?v=1793460181">
 
 </head>
 <body><header class="nav nav--solid">
@@ -32,7 +32,8 @@
   </div>
 </header>
 <main>
-<section class="page-hero">
+<section class="page-hero page-hero--photos">
+  <div class="page-hero__photos" aria-hidden="true"><img src="assets/outlet/novena-1.jpg" alt="" class="is-active" loading="eager"><img src="assets/outlet/skysuites-1.jpg" alt="" class="" loading="eager"><img src="assets/outlet/novena-2.jpg" alt="" class="" loading="lazy"><img src="assets/outlet/skysuites-3.jpg" alt="" class="" loading="lazy"><img src="assets/outlet/novena-3.jpg" alt="" class="" loading="lazy"><img src="assets/outlet/skysuites-2.jpg" alt="" class="" loading="lazy"><img src="assets/outlet/skysuites-4.jpg" alt="" class="" loading="lazy"></div>
   <div class="wrap">
     <p class="eyebrow">Contact us</p>
     <h1>Two outlets.<br>Equally loved.</h1>
@@ -40,23 +41,7 @@
   </div>
 </section>
 
-<section class="section--tight slider-section">
-  <div class="wrap"><div class="slider" id="outlet-slider" aria-label="Our two outlets">
-  <div class="slider__track"><figure class="slide"><img src="assets/outlet/novena-1.jpg" alt="Novena Regency storefront" loading="eager" draggable="false">
-      <figcaption><span class="slide__tag">Novena</span><strong>Spring Roll Station (Novena)</strong><span>275 Thomson Road #01-26, Novena Regency, Singapore 307645</span></figcaption></figure><figure class="slide"><img src="assets/outlet/novena-2.jpg" alt="Dining room at Novena" loading="lazy" draggable="false">
-      <figcaption><span class="slide__tag">Novena</span><strong>Spring Roll Station (Novena)</strong><span>275 Thomson Road #01-26, Novena Regency, Singapore 307645</span></figcaption></figure><figure class="slide"><img src="assets/outlet/novena-3.jpg" alt="Seating and drinks chiller at Novena" loading="lazy" draggable="false">
-      <figcaption><span class="slide__tag">Novena</span><strong>Spring Roll Station (Novena)</strong><span>275 Thomson Road #01-26, Novena Regency, Singapore 307645</span></figcaption></figure><figure class="slide"><img src="assets/outlet/skysuites-1.jpg" alt="Skysuites at Anson storefront" loading="lazy" draggable="false">
-      <figcaption><span class="slide__tag">Skysuites at Anson</span><strong>Spring Roll Station (Skysuites at Anson)</strong><span>8 Enggor Street #01-01/02, Skysuites at Anson, Singapore 079718</span></figcaption></figure><figure class="slide"><img src="assets/outlet/skysuites-2.jpg" alt="Cafe seating at Skysuites at Anson" loading="lazy" draggable="false">
-      <figcaption><span class="slide__tag">Skysuites at Anson</span><strong>Spring Roll Station (Skysuites at Anson)</strong><span>8 Enggor Street #01-01/02, Skysuites at Anson, Singapore 079718</span></figcaption></figure><figure class="slide"><img src="assets/outlet/skysuites-3.jpg" alt="Pink and mint dining room at Skysuites at Anson" loading="lazy" draggable="false">
-      <figcaption><span class="slide__tag">Skysuites at Anson</span><strong>Spring Roll Station (Skysuites at Anson)</strong><span>8 Enggor Street #01-01/02, Skysuites at Anson, Singapore 079718</span></figcaption></figure><figure class="slide"><img src="assets/outlet/skysuites-4.jpg" alt="The kitchen at Skysuites at Anson" loading="lazy" draggable="false">
-      <figcaption><span class="slide__tag">Skysuites at Anson</span><strong>Spring Roll Station (Skysuites at Anson)</strong><span>8 Enggor Street #01-01/02, Skysuites at Anson, Singapore 079718</span></figcaption></figure></div>
-  <button class="slider__btn slider__btn--prev" type="button" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
-  <button class="slider__btn slider__btn--next" type="button" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
-  <div class="slider__dots"><button type="button" data-go="0" aria-label="Photo 1"></button><button type="button" data-go="1" aria-label="Photo 2"></button><button type="button" data-go="2" aria-label="Photo 3"></button><button type="button" data-go="3" aria-label="Photo 4"></button><button type="button" data-go="4" aria-label="Photo 5"></button><button type="button" data-go="5" aria-label="Photo 6"></button><button type="button" data-go="6" aria-label="Photo 7"></button></div>
-</div></div>
-</section>
-
-<section class="section" style="padding-top:0">
+<section class="section">
   <div class="wrap">
     <div class="outlets">
       <article class="outlet reveal">
@@ -166,7 +151,7 @@
   </div>
   <button class="wa-float__btn" type="button" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></button>
 </div>
-<script src="js/main.js?v=1793459748"></script>
+<script src="js/main.js?v=1793460181"></script>
 <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
 <script>
 (function(){

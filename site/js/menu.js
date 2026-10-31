@@ -1,11 +1,14 @@
 /* Menu page: renders the menu from MENU, opens an item popup for options, keeps a basket
    and sends the order over WhatsApp. */
-(function () {
+(async function () {
   'use strict';
-  const MENU = window.MENU, OUTLETS = window.OUTLETS;
   const root = document.getElementById('menu-root');
   const navWrap = document.getElementById('menu-nav');
-  if (!root || !MENU) return;
+  if (!root) return;
+  const MENU = await window.loadMenu();
+  const OUTLETS = window.OUTLETS;
+  const imgSrc = window.menuImageSrc || ((f) => 'assets/menu/' + f);
+  if (!MENU || !MENU.length) { root.innerHTML = '<div class="wrap" style="padding:60px 0"><p class="lead">The menu is being updated. Please check back shortly.</p></div>'; return; }
 
   const money = (n) => '$' + n.toFixed(2);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -52,6 +55,7 @@
   function footHTML(id) {
     const q = itemQty(id);
     const it = INDEX[id];
+    if (it.available === false) return `<span class="in-order" style="color:var(--ink-3)">Sold out today</span>`;
     const label = it.options && it.options.length ? 'Choose' : 'Add';
     return (q ? `<span class="in-order">${q} in order</span>` : '') + `<button class="add" type="button" data-open="${id}">${ICON_PLUS} ${label}</button>`;
   }
@@ -64,9 +68,9 @@
   function itemCard(it) {
     return `<article class="item" data-item="${it.id}" id="${it.id}">
       <button class="item__img" type="button" data-open="${it.id}" aria-label="View ${esc(it.name)}">
-        <img src="assets/menu/${esc(it.img)}" alt="${esc(it.name)}" loading="lazy" onerror="this.parentElement.classList.add('is-placeholder')">
+        <img src="${esc(imgSrc(it.img))}" alt="${esc(it.name)}" loading="lazy" onerror="this.parentElement.classList.add('is-placeholder')">
         <div class="item__ph">${ICON_BOWL}<span>Photo coming soon</span></div>
-        ${it.badges ? `<div class="item__badges">${it.badges.map(badge).join('')}</div>` : ''}
+        ${it.badges || it.available === false ? `<div class="item__badges">${(it.badges || []).map(badge).join('')}${it.available === false ? '<span class="badge badge--limited">Sold out</span>' : ''}</div>` : ''}
       </button>
       <div class="item__body">
         <div class="item__title"><h3>${esc(it.name)}${it.vn ? `<small>${esc(it.vn)}</small>` : ''}</h3><span class="item__price">${money(it.price)}</span></div>
@@ -111,7 +115,7 @@
   let current = null;
 
   function openItem(id) {
-    const it = INDEX[id]; if (!it) return;
+    const it = INDEX[id]; if (!it || it.available === false) return;
     current = { id, qty: 1 };
     const groups = (it.options || []).map((g) => `
       <fieldset class="ogroup" data-group="${g.id}" data-type="${g.type}" ${g.required ? 'data-required="1"' : ''}>
@@ -125,7 +129,7 @@
           </label>`).join('')}
       </fieldset>`).join('');
     modalBody.innerHTML = `
-      <div class="imodal__img"><img src="assets/menu/${esc(it.img)}" alt="" onerror="this.parentElement.style.display='none'"></div>
+      <div class="imodal__img"><img src="${esc(imgSrc(it.img))}" alt="" onerror="this.parentElement.style.display='none'"></div>
       <div class="imodal__info">
         <p class="eyebrow">${esc(it.cat)}${it.vn ? ' · ' + esc(it.vn) : ''}</p>
         <h2>${esc(it.name)}</h2>

@@ -59,25 +59,12 @@
     setInterval(() => { bi = (bi + 1) % imgs.length; imgs.forEach((im, k) => im.classList.toggle('is-active', k === bi)); }, 6000);
   }
 
-  /* ---------- photo sliders ---------- */
-  document.querySelectorAll('.slider').forEach((sl) => {
-    const track = sl.querySelector('.slider__track');
-    const slides = [...track.children];
-    const dots = [...sl.querySelectorAll('.slider__dots button')];
-    let i = 0, timer;
-    const go = (n) => { i = (n + slides.length) % slides.length; track.style.transform = `translateX(-${i * 100}%)`; dots.forEach((d, k) => d.classList.toggle('is-active', k === i)); };
-    const restart = () => { clearInterval(timer); timer = setInterval(() => go(i + 1), 5000); };
-    sl.querySelector('.slider__btn--prev').addEventListener('click', () => { go(i - 1); restart(); });
-    sl.querySelector('.slider__btn--next').addEventListener('click', () => { go(i + 1); restart(); });
-    dots.forEach((d) => d.addEventListener('click', () => { go(+d.dataset.go); restart(); }));
-    let sx = 0, sy = 0;
-    sl.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
-    sl.addEventListener('touchend', (e) => { const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { go(dx < 0 ? i + 1 : i - 1); restart(); } }, { passive: true });
-    sl.addEventListener('mouseenter', () => clearInterval(timer));
-    sl.addEventListener('mouseleave', restart);
-    go(0);
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) restart();
-  });
+  /* ---------- hero photo slideshow (contact page) ---------- */
+  const heroPhotos = document.querySelector('.page-hero__photos');
+  if (heroPhotos && heroPhotos.children.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let pi = 0; const ph = [...heroPhotos.children];
+    setInterval(() => { pi = (pi + 1) % ph.length; ph.forEach((im, k) => im.classList.toggle('is-active', k === pi)); }, 5000);
+  }
 
   /* ---------- the phở wheel ---------- */
   const hero = document.getElementById('hero');
