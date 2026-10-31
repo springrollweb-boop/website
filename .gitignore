@@ -1,0 +1,10 @@
+# macOS and editor
+.DS_Store
+.claude/
+
+# raw source material supplied by the client (kept locally, not needed to serve the site)
+WhatsApp Image *.jpeg
+Spring_Roll_Station_Website_Brief_Completed.docx
+reference.jpg
+logo.jpeg
+pho/

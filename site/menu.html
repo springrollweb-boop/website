@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-SG">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menu | Spring Roll Station</title>
+<meta name="description" content="Full menu with prices: phở, bánh mì, fresh spring rolls, mains, Vietnamese coffee, teas and drinks. No GST, no service charge. Order for collection on WhatsApp.">
+<meta name="theme-color" content="#FDDE80">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,0..100&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=1792570397">
+
+</head>
+<body><header class="nav nav--solid">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/logo.webp" alt="Spring Roll Station logo" width="46" height="46"><span>Spring Roll Station</span></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="menu.html" class="is-active">Menu</a>
+      <a href="contact.html">Contact Us</a>
+      <a class="btn" href="menu.html">View Our Menu</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn--primary btn--sm" href="menu.html">View Our Menu</a>
+      <button class="nav-toggle" type="button" aria-label="Open menu"><span></span></button>
+    </div>
+  </div>
+</header>
+<main>
+<section class="page-hero">
+  <div class="wrap">
+    <p class="eyebrow">Our menu</p>
+    <h1>The price you see is<br>the price you pay</h1>
+    <p>No GST. No service charge. Pick your favourites, then send your order to the outlet of your choice on WhatsApp for self collection. Dine in and take away are always welcome.</p>
+  </div>
+</section>
+<div class="menu-nav"><div class="wrap" id="menu-nav"></div></div>
+<div id="menu-root"></div>
+<section class="cta section--tight">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Hungry yet?</p>
+      <h2>Order for collection on WhatsApp, or come say hi.</h2>
+    </div>
+    <div class="cta__actions">
+      <a class="btn btn--primary" href="menu.html">View Our Menu <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn--dark" href="contact.html">Find an outlet</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<button class="cart-fab" id="cart-fab" type="button" aria-label="View your order"><b>0</b><span>View order $0.00</span></button>
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart" id="cart" aria-label="Your order">
+  <div class="cart__head"><h2>Your order</h2><button class="cart__close" type="button" aria-label="Close">&times;</button></div>
+  <div class="cart__body"></div>
+  <div class="cart__foot">
+    <div class="cart__outlet">
+      <p>Collect from</p>
+      <div class="choice">
+        <label><input type="radio" name="outlet" value="novena" checked><b>Novena</b><span>Till midnight</span></label>
+        <label><input type="radio" name="outlet" value="skysuites"><b>Skysuites at Anson</b><span>Till 10pm</span></label>
+      </div>
+    </div>
+    <div class="form__row">
+      <div class="cart__field"><label for="cust-name">Your name</label><input id="cust-name" type="text" autocomplete="name" placeholder="Name"></div>
+      <div class="cart__field"><label for="cust-time">Collection time</label><input id="cust-time" type="text" placeholder="e.g. 12:30pm"></div>
+    </div>
+    <div class="cart__field"><label for="cust-notes">Notes</label><input id="cust-notes" type="text" placeholder="Sauce choice, less spicy, allergies"></div>
+    <div class="cart__total" style="margin-top:16px"><span>Total</span><b>$0.00</b></div>
+    <p class="cart__fine">No GST, no service charge. Pay at collection. The outlet will confirm your order on WhatsApp.</p>
+    <a class="btn btn--wa" id="order-wa" href="#"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg> Send order on WhatsApp</a>
+    <button class="cart__clear" type="button">Clear order</button>
+  </div>
+</aside>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="brand" href="index.html"><img src="assets/logo.webp" alt="" width="46" height="46"><span>Spring Roll Station</span></a>
+        <p>Authentic Vietnamese favourites, made fresh and served with heart. Phở, bánh mì, fresh spring rolls, Vietnamese coffee and more.</p>
+        <span class="footer__badge">No GST · No service charge</span>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="menu.html">Menu</a></li><li><a href="contact.html">Contact Us</a></li></ul>
+      </div>
+      <div>
+        <h4>Novena</h4>
+        <ul><li>275 Thomson Road #01-26<br>Novena Regency, Singapore 307645</li><li>Daily 10:00am to 12:00 midnight</li><li><a href="https://wa.me/6588019189" target="_blank" rel="noopener">WhatsApp 8801 9189</a></li></ul>
+      </div>
+      <div>
+        <h4>Skysuites at Anson</h4>
+        <ul><li>8 Enggor Street #01-01/02<br>Skysuites at Anson, Singapore 079718</li><li>Daily 10:00am to 10:00pm</li><li><a href="https://wa.me/6580170610" target="_blank" rel="noopener">WhatsApp 8017 0610</a></li></ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; <span id="year">2026</span> Spring Roll Station. All rights reserved.</span>
+      <span><a href="https://www.instagram.com/spring_roll_station/" target="_blank" rel="noopener">Instagram @spring_roll_station</a> · <a href="mailto:director@springrollstation.com.sg">director@springrollstation.com.sg</a></span>
+    </div>
+  </div>
+</footer>
+<div class="wa-float">
+  <div class="wa-float__menu" role="menu">
+    <p>Chat with an outlet</p>
+    <a href="https://wa.me/6588019189" target="_blank" rel="noopener">Novena<small>8801 9189 · till midnight</small></a>
+    <a href="https://wa.me/6580170610" target="_blank" rel="noopener">Skysuites at Anson<small>8017 0610 · till 10pm</small></a>
+  </div>
+  <button class="wa-float__btn" type="button" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></button>
+</div>
+<script src="js/main.js?v=1792570397"></script>
+<script>document.getElementById('year').textContent=new Date().getFullYear()</script>
+<script src="js/menu-data.js?v=1792570397"></script>
+<script src="js/menu.js?v=1792570397"></script>
+</body>
+</html>
