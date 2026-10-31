@@ -8,3 +8,8 @@ Spring_Roll_Station_Website_Brief_Completed.docx
 reference.jpg
 logo.jpeg
 pho/
+
+# generated at deploy time from Vercel environment variables
+site/js/config.js
+.env.local
+.env*.local

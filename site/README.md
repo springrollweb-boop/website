@@ -60,7 +60,7 @@ Setting it up for a new Supabase project:
 
 1. Create the project at supabase.com, then open SQL Editor, paste the contents of `../supabase/schema.sql` and run it. This creates the tables, the access rules and the `menu` photo bucket. Then run `../supabase/admins.sql`, which limits every change to the emails on the admin list (the director's email is already on it).
 2. In Authentication, turn off public sign ups (Providers > Email > disable "Allow new users to sign up") and add the restaurant's login under Users > Add user (email and password, confirm the email).
-3. In Project Settings > API, copy the Project URL and the anon public key into `site/js/config.js`, then push.
+3. In Project Settings > API Keys, copy the Project URL and the anon public key. In Vercel, open the project, then Settings > Environment Variables, and add them as `SUPABASE_URL` and `SUPABASE_ANON_KEY` for Production and Preview. On every deploy, `scripts/write-config.mjs` writes `site/js/config.js` from them (the file is not committed). It refuses the service_role or any secret key. For local previews, put the same two lines in `.env.local` at the project root and run `node scripts/write-config.mjs`.
 4. Load the menu into the database once: either run `../supabase/seed-menu.sql` in the SQL Editor (no login needed), or open `/admin`, sign in, and click "Import current menu". Both copy the menu from `js/menu-data.js`. The SQL file is safe to run twice.
 
 To give someone else edit access, run `insert into public.cms_admins (email) values ('their@email');` in the SQL editor and add them under Authentication > Users.
