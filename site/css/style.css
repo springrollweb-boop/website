@@ -542,3 +542,18 @@ body.is-preloading{overflow:hidden}
 .wa-pick__btn b{font-size:.95rem}
 .wa-pick__btn span{font-size:.82rem;color:var(--ink-2)}
 @media (max-width:480px){.wa-pick__options{grid-template-columns:1fr}}
+
+/* menu loading placeholders */
+#menu-root:empty{min-height:120vh}
+.skel{background:linear-gradient(90deg,#F6EED5 0%,#FBF5E2 40%,#F6EED5 80%);background-size:200% 100%;animation:skel 1.3s ease-in-out infinite;border-radius:10px}
+@keyframes skel{from{background-position:100% 0}to{background-position:-100% 0}}
+.skel--eyebrow{width:70px;height:12px;margin-bottom:12px}
+.skel--title{width:220px;height:38px;margin-bottom:14px}
+.skel--line{height:13px;width:80%;margin-top:10px}
+.skel--wide{width:min(560px,90%);margin-bottom:26px}
+.skel--short{width:45%}
+.skel--pill{display:inline-block;flex:none;width:96px;height:36px;border-radius:999px}
+.skel-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
+.skel--img{aspect-ratio:1/1;border-radius:0}
+.skel-card__body{padding:16px 18px 22px}
+@media (prefers-reduced-motion:reduce){.skel{animation:none}}

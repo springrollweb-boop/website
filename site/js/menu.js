@@ -5,6 +5,10 @@
   const root = document.getElementById('menu-root');
   const navWrap = document.getElementById('menu-nav');
   if (!root) return;
+  // hold the space with placeholder cards while the menu loads, so the page below does not jump up
+  const skelCard = '<div class="skel-card"><div class="skel skel--img"></div><div class="skel-card__body"><div class="skel skel--line"></div><div class="skel skel--line skel--short"></div></div></div>';
+  root.innerHTML = `<section class="menu-section" aria-busy="true" aria-label="Loading the menu"><div class="wrap"><div class="skel skel--eyebrow"></div><div class="skel skel--title"></div><div class="skel skel--line skel--wide"></div><div class="items">${skelCard.repeat(8)}</div></div></section>`;
+  if (navWrap) navWrap.innerHTML = '<span class="skel skel--pill"></span>'.repeat(6);
   const MENU = await window.loadMenu();
   const OUTLETS = window.OUTLETS;
   const imgSrc = window.menuImageSrc || ((f) => 'assets/menu/' + f);
