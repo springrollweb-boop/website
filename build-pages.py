@@ -208,7 +208,7 @@ home = head('Spring Roll Station | Vietnamese Restaurant in Singapore', 'Authent
     <button class="wheel-btn wheel-btn--next" type="button" aria-label="Next bowl">{IC['chevR']}</button>
     <div class="wheel-meta" aria-live="polite">
       <h2 class="wheel-meta__name">Beef Phở</h2>
-      <p class="wheel-meta__price">S$14.90</p>
+      <p class="wheel-meta__price">S$16.90</p>
       <p class="wheel-meta__desc">Three beef cuts in one bowl: premium lean, rich marbled and slow cooked shank.</p>
       <a class="btn btn--primary btn--sm" href="menu.html#pho-beef">Order this bowl</a>
     </div>
@@ -225,20 +225,20 @@ home = head('Spring Roll Station | Vietnamese Restaurant in Singapore', 'Authent
     </div>
     <div class="cards">
       <a class="card reveal" href="menu.html#pho">
-        <div class="card__img"><img src="assets/menu/pho-beef.jpg" alt="Beef phở" loading="lazy"></div>
-        <div class="card__body"><h3>Phở</h3><p>Slow simmered broth, silky noodles and four bowls to choose from: beef, chicken, ribeye and signature prawn.</p><span class="link">From $13.90 {IC['arrow']}</span></div>
+        <div class="card__img"><img src="assets/menu/beef-pho.jpg" alt="Beef phở" loading="lazy"></div>
+        <div class="card__body"><h3>Phở</h3><p>Slow simmered broth, silky noodles and six bowls to choose from, including beef, chicken, ribeye and our signature prawn.</p><span class="link">From $13.90 {IC['arrow']}</span></div>
       </a>
       <a class="card reveal" href="menu.html#banh-mi">
-        <div class="card__img"><img src="assets/menu/banh-mi-signature.jpg" alt="Signature bánh mì" loading="lazy"></div>
-        <div class="card__body"><h3>Bánh Mì</h3><p>Crispy baguettes, freshly made. Ten fillings from egg omelet to Iberico char siew and our signature five ham bánh mì.</p><span class="link">From $5.90 {IC['arrow']}</span></div>
+        <div class="card__img"><img src="assets/menu/bm-deluxe-signature.jpg" alt="Deluxe signature bánh mì" loading="lazy"></div>
+        <div class="card__body"><h3>Bánh Mì</h3><p>Crispy artisan baguettes, toasted to order. Thirteen fillings from egg to Iberico char siew and our deluxe five ham signature.</p><span class="link">From $6.90 {IC['arrow']}</span></div>
       </a>
       <a class="card reveal" href="menu.html#spring-rolls">
-        <div class="card__img"><img src="assets/menu/spring-roll-prawn.jpg" alt="Fresh spring rolls" loading="lazy"></div>
-        <div class="card__body"><h3>Fresh Spring Rolls</h3><p>Light, fresh and full of flavour, with your choice of five house sauces.</p><span class="link">From $5.80 {IC['arrow']}</span></div>
+        <div class="card__img"><img src="assets/menu/roll-prawn.jpg" alt="Fresh spring rolls" loading="lazy"></div>
+        <div class="card__body"><h3>Fresh Spring Rolls</h3><p>Light, fresh and full of flavour. Two rolls per serving with your choice of five house sauces.</p><span class="link">From $9.90 {IC['arrow']}</span></div>
       </a>
       <a class="card reveal" href="menu.html#coffee">
         <div class="card__img"><img src="assets/menu/coffee-iced-milk.jpg" alt="Vietnamese iced milk coffee" loading="lazy"></div>
-        <div class="card__body"><h3>Vietnamese Coffee</h3><p>Traditional phin brews plus coconut, salted and our signature spiced coffee.</p><span class="link">From $3.80 {IC['arrow']}</span></div>
+        <div class="card__body"><h3>Vietnamese Coffee</h3><p>Gourmet single estate Đắk Lắk beans: iced milk coffee, bạc xỉu, egg coffee and our coco spiced signature.</p><span class="link">From $6.90 {IC['arrow']}</span></div>
       </a>
     </div>
   </div>
@@ -353,7 +353,8 @@ about = head('About Us | Spring Roll Station', 'The story of Spring Roll Station
 # ---------------- MENU ----------------
 menu = head('Menu | Spring Roll Station', 'Full menu with prices: phở, bánh mì, fresh spring rolls, mains, Vietnamese coffee, teas and drinks. No GST, no service charge. Order for collection on WhatsApp.') + nav('menu', solid=True) + f'''
 <main>
-<section class="page-hero">
+<section class="page-hero page-hero--menu">
+  <div class="page-hero__bowl" aria-hidden="true"><img src="assets/bowls/beef.webp" alt="" draggable="false"></div>
   <div class="wrap">
     <p class="eyebrow">Our menu</p>
     <h1>The price you see is<br>the price you pay</h1>
@@ -365,6 +366,17 @@ menu = head('Menu | Spring Roll Station', 'Full menu with prices: phở, bánh m
 {cta()}
 </main>
 
+<div class="imodal" id="item-modal" aria-modal="true" role="dialog">
+  <div class="imodal__overlay"></div>
+  <div class="imodal__panel">
+    <button class="imodal__close" type="button" aria-label="Close">&times;</button>
+    <div class="imodal__body"></div>
+    <div class="imodal__foot">
+      <div class="imodal__qty"><button type="button" data-dec aria-label="Fewer">&minus;</button><output>1</output><button type="button" data-inc aria-label="More">+</button></div>
+      <button class="btn btn--primary" id="modal-add" type="button"><span>Add to order</span></button>
+    </div>
+  </div>
+</div>
 <button class="cart-fab" id="cart-fab" type="button" aria-label="View your order"><b>0</b><span>View order $0.00</span></button>
 <div class="cart-overlay" id="cart-overlay"></div>
 <aside class="cart" id="cart" aria-label="Your order">

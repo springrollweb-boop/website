@@ -23,27 +23,13 @@ Then open http://localhost:8765 in a browser. Any static host (Netlify, Vercel, 
 
 Everything on the menu page comes from `js/menu-data.js`. Each item has a name, price, description, badges and a photo filename. Change a price there and it updates everywhere, including the basket. Outlet names, numbers and hours used by the basket are in `window.OUTLETS` at the bottom of the same file.
 
-## Photos still needed
+## Menu photos
 
-Cards without a photo show a "Photo coming soon" tile. To add one, save a 4:3 photo (about 900 x 675 px, JPG) with the filename below into `assets/menu/` and reload. No code changes needed.
+Every item has a photo in `assets/menu/`, taken from the restaurant's GrabFood listing (300 px square). To replace one, save a square JPG with the same filename (the `img` value in `js/menu-data.js`) over the existing file. The Signature Prawn Phở uses the poster bowl image `pho-prawn.jpg`.
 
-- `assets/menu/banh-mi-chicken-cutlet.jpg` for Crispy Chicken Cutlet Bánh Mì
-- `assets/menu/banh-mi-egg-omelet.jpg` for Egg Omelet Bánh Mì
-- `assets/menu/banh-mi-fish-fillet.jpg` for Crispy Fish Fillet Bánh Mì
-- `assets/menu/banh-mi-iberico-char-siew.jpg` for Iberico Char Siew Bánh Mì
-- `assets/menu/banh-mi-iberico-roast-pork.jpg` for Iberico Roast Pork Bánh Mì
-- `assets/menu/banh-mi-prawn-sriracha.jpg` for Prawn Sriracha Mayo Bánh Mì
-- `assets/menu/banh-mi-roast-pork.jpg` for Roast Pork Bánh Mì
-- `assets/menu/banh-mi-smoked-salmon.jpg` for Smoked Salmon Wasabi Mayo Bánh Mì
-- `assets/menu/banh-mi-vegetable.jpg` for Vegetable Bánh Mì
-- `assets/menu/skewers-mutton.jpg` for Giant Mutton Skewers
-- `assets/menu/spring-roll-egg.jpg` for Egg Omelet Roll
-- `assets/menu/spring-roll-pork-prawn.jpg` for Pork and Prawn Roll
-- `assets/menu/spring-roll-pork.jpg` for Pork Slice Roll
-- `assets/menu/spring-roll-salmon.jpg` for Smoked Salmon and Wasabi Roll
-- `assets/menu/spring-roll-vegetable.jpg` for Garden Vegetable Roll
+## Item options
 
-The four corn items currently share one photo (`corn-all.jpg`). Replace any of them by changing the `img` value for that item in `js/menu-data.js`.
+Items can carry option groups (`options` in `js/menu-data.js`), shown in a popup when the customer taps the item: `single` groups are pick one, `multi` groups are pick any, and a choice with a `price` adds that amount. Phở add-ons, spring roll sauces and the grilled meat choice are already defined at the top of the file.
 
 ## Hero wheel images
 

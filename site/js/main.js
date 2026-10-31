@@ -58,9 +58,9 @@
   if (!hero || !wheel) return;
 
   const BOWLS = [
-    { id: 'chicken', label: 'Chicken', name: 'Chicken Phở', price: 'S$13.90', desc: 'Tender, juicy cuts of chicken thigh in a light, clear broth.' },
-    { id: 'beef', label: 'Beef', name: 'Beef Phở', price: 'S$14.90', desc: 'Three beef cuts in one bowl: premium lean, rich marbled and slow cooked shank.' },
-    { id: 'ribeye', label: 'Ribeye', name: 'Ribeye Phở', price: 'S$19.90', desc: 'A whole sous vide medium rare ribeye on top of our three cut beef phở.' },
+    { id: 'chicken', label: 'Chicken', name: 'Chicken Phở', price: 'S$14.90', desc: 'Tender, juicy cuts of chicken thigh in a light, clear broth.' },
+    { id: 'beef', label: 'Beef', name: 'Beef Phở', price: 'S$16.90', desc: 'Three beef cuts in one bowl: premium lean, rich marbled and slow cooked shank.' },
+    { id: 'ribeye', label: 'Ribeye', name: 'Ribeye Phở', price: 'S$21.80', desc: 'A whole sous vide medium rare ribeye on top of our three cut beef phở.' },
     { id: 'prawn', label: 'Prawn', name: 'Signature Prawn Phở', price: 'S$14.90', desc: 'Fresh prawns and premium prawn mousse. Limited quantities daily.' }
   ];
   const N = BOWLS.length;
