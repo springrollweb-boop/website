@@ -76,7 +76,6 @@ def footer():
       <div>
         <a class="brand" href="index.html"><img src="assets/logo.webp" alt="" width="46" height="46"><span>Spring Roll Station</span></a>
         <p>Authentic Vietnamese favourites, made fresh and served with heart. Phở, bánh mì, fresh spring rolls, Vietnamese coffee and more.</p>
-        <span class="footer__badge">No GST · No service charge</span>
       </div>
       <div>
         <h4>Explore</h4>
