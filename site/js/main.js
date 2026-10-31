@@ -64,6 +64,21 @@
     }, 6000);
   }
 
+  /* ---------- numbers that count up when they scroll into view ---------- */
+  const counters = [...document.querySelectorAll('.counter[data-count]')];
+  if (counters.length) {
+    const run = (el) => {
+      const target = parseFloat(el.dataset.count); const dec = (el.dataset.count.split('.')[1] || '').length;
+      const t0 = performance.now(), dur = 1400;
+      const tick = (now) => { const p = Math.min(1, (now - t0) / dur); const e = 1 - Math.pow(1 - p, 3); el.textContent = (target * e).toFixed(dec); if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    };
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const cio = new IntersectionObserver((en) => en.forEach((x) => { if (x.isIntersecting) { run(x.target); cio.unobserve(x.target); } }), { threshold: 0.4 });
+      counters.forEach((c) => cio.observe(c));
+    } else counters.forEach((c) => { c.textContent = c.dataset.count; });
+  }
+
   /* ---------- hero photo slideshow (contact page) ---------- */
   const heroPhotos = document.querySelector('.page-hero__photos');
   if (heroPhotos && heroPhotos.children.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

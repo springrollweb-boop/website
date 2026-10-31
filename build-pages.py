@@ -108,7 +108,6 @@ def outlet_card(o, with_map=False):
     m = f'''<div class="map"><iframe title="Map of {o['full']}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q={o['q']}&output=embed"></iframe></div>''' if with_map else ''
     return f'''<article class="outlet reveal">
   <div class="outlet__photo"><img src="assets/outlet/{o['photo']}" alt="{o['full']} storefront" loading="lazy"></div>
-  <span class="tag">{o['tag']}</span>
   <h3>{o['full']}</h3>
   <address>{o['addr1']}<br>{o['addr2']}</address>
   <div class="hours">{IC['clock']}<span>{o['hours']}</span></div>
@@ -263,9 +262,6 @@ home = head('Spring Roll Station | Vietnamese Restaurant in Singapore', 'Authent
       <h2>Vietnamese at heart, made for Singapore</h2>
       <p>Spring Roll Station was created with a simple idea: to make well loved Vietnamese food easy and enjoyable for everyone in Singapore, with a strong focus on quality ingredients, generous portions and honest value.</p>
       <p>What started at our original Upper Cross Street outlet has grown with the support of our regulars. Today you will find us at Novena Regency and at Skysuites at Anson in Tanjong Pagar.</p>
-      <div class="pill-list">
-        <span class="pill">Quality ingredients</span><span class="pill">Generous portions</span><span class="pill">No GST</span><span class="pill">No service charge</span><span class="pill">Warm and casual</span>
-      </div>
       <a class="btn btn--dark" href="about.html">Read our story {IC['arrow']}</a>
     </div>
   </div>
@@ -316,37 +312,29 @@ about = head('About Us | Spring Roll Station', 'The story of Spring Roll Station
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="ratings">
   <div class="wrap">
     <div class="section-head center reveal">
       <p class="eyebrow">Loved on every platform</p>
       <h2>Rated by the people who eat with us</h2>
-      <p>Our Novena outlet on Google, GrabFood and foodpanda. Order delivery from either app, or come in and skip the fees.</p>
+      <p>How our Novena outlet is rated on Google, foodpanda and GrabFood.</p>
     </div>
     <div class="platforms">
-      <a class="platform reveal" href="{NOVENA['reviews']}" target="_blank" rel="noopener">
-        <span class="platform__logo platform__logo--google">G</span>
-        <b>4.7</b><span class="platform__stars">{''.join('<i class="on">' + STAR + '</i>' for _ in range(4))}<i class="on part">{STAR}</i></span>
+      <div class="platform reveal">
+        <span class="platform__logo"><img src="assets/logos/google.svg" alt="Google" class="platform__logo--google"></span>
+        <b class="counter" data-count="4.7">0.0</b><span class="platform__stars">{''.join('<i class="on">' + STAR + '</i>' for _ in range(4))}<i class="on part">{STAR}</i></span>
         <span class="platform__name">Google</span><small>40 reviews</small>
-        <span class="link-arrow">Read reviews {IC['arrow']}</span>
-      </a>
-      <a class="platform reveal" href="{FOODPANDA_REVIEWS}" target="_blank" rel="noopener">
-        <span class="platform__logo platform__logo--panda">foodpanda</span>
-        <b>4.9</b><span class="platform__stars">{''.join('<i class="on">' + STAR + '</i>' for _ in range(5))}</span>
+      </div>
+      <div class="platform reveal">
+        <span class="platform__logo"><img src="assets/logos/foodpanda.svg" alt="foodpanda" class="platform__logo--panda"></span>
+        <b class="counter" data-count="4.9">0.0</b><span class="platform__stars">{''.join('<i class="on">' + STAR + '</i>' for _ in range(5))}</span>
         <span class="platform__name">foodpanda</span><small>154 ratings</small>
-        <span class="link-arrow">Read reviews {IC['arrow']}</span>
-      </a>
-      <a class="platform reveal" href="{GRAB_URL}" target="_blank" rel="noopener">
-        <span class="platform__logo platform__logo--grab">Grab</span>
-        <b>4.7</b><span class="platform__stars">{''.join('<i class="on">' + STAR + '</i>' for _ in range(4))}<i class="on part">{STAR}</i></span>
-        <span class="platform__name">GrabFood</span><small>Novena Regency</small>
-        <span class="link-arrow">Order on Grab {IC['arrow']}</span>
-      </a>
-    </div>
-    <div class="platforms__order reveal">
-      <span>Prefer delivery?</span>
-      <a class="btn btn--dark btn--sm" href="{GRAB_URL}" target="_blank" rel="noopener">Order on GrabFood</a>
-      <a class="btn btn--dark btn--sm" href="{FOODPANDA_URL}" target="_blank" rel="noopener">Order on foodpanda</a>
+      </div>
+      <div class="platform reveal">
+        <span class="platform__logo"><img src="assets/logos/grab.svg" alt="Grab" class="platform__logo--grab"></span>
+        <b class="counter" data-count="4.7">0.0</b><span class="platform__stars">{''.join('<i class="on">' + STAR + '</i>' for _ in range(4))}<i class="on part">{STAR}</i></span>
+        <span class="platform__name">GrabFood</span><small>Delivery rating</small>
+      </div>
     </div>
   </div>
 </section>
@@ -395,7 +383,6 @@ menu = head('Menu | Spring Roll Station', 'Full menu with prices: phở, bánh m
     <p class="eyebrow">Our menu</p>
     <h1>The price you see is<br>the price you pay</h1>
     <p>No GST. No service charge. Pick your favourites, then send your order to the outlet of your choice on WhatsApp for self collection. Dine in and take away are always welcome.</p>
-    <div class="hero-links"><span>Delivery:</span><a href="{GRAB_URL}" target="_blank" rel="noopener">GrabFood {IC['arrow']}</a><a href="{FOODPANDA_URL}" target="_blank" rel="noopener">foodpanda {IC['arrow']}</a></div>
   </div>
 </section>
 <div class="menu-nav"><div class="wrap" id="menu-nav"></div></div>
