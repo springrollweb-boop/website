@@ -316,16 +316,6 @@ about = head('About Us | Spring Roll Station', 'The story of Spring Roll Station
   </div>
 </section>
 
-<section class="section--tight" style="background:var(--cream)">
-  <div class="wrap">
-    <div class="stats reveal">
-      <div class="stat"><b>2024</b><span>Established in Singapore</span></div>
-      <div class="stat"><b>2</b><span>Outlets, Novena and Anson</span></div>
-      <div class="stat"><b>0%</b><span>GST and service charge</span></div>
-    </div>
-  </div>
-</section>
-
 <section class="section">
   <div class="wrap">
     <div class="section-head center reveal">
