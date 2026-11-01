@@ -173,12 +173,12 @@ def reviews_section():
       <div class="gscore">
         {GOOGLE_G}
         <div>
-          <div class="gscore__row"><b>4.7</b><span class="stars stars--lg" aria-label="4.7 out of 5 stars"><i class="on">{STAR}</i><i class="on">{STAR}</i><i class="on">{STAR}</i><i class="on">{STAR}</i><i class="on part">{STAR}</i></span></div>
-          <small>40 Google reviews</small>
+          <div class="gscore__row"><b>4.8</b><span class="stars stars--lg" aria-label="4.8 out of 5 stars"><i class="on">{STAR}</i><i class="on">{STAR}</i><i class="on">{STAR}</i><i class="on">{STAR}</i><i class="on part part--80">{STAR}</i></span></div>
+          <small>21 Google reviews</small>
         </div>
       </div>
       <div class="reviews__actions">
-        <a class="btn btn--ghost btn--sm" href="{NOVENA['reviews']}" target="_blank" rel="noopener">Write a review</a>
+        <a class="btn btn--ghost btn--sm" href="{SKY['reviews']}" target="_blank" rel="noopener">Write a review</a>
       </div>
     </div>
   </div>
@@ -316,14 +316,14 @@ about = head('About Us | Spring Roll Station', 'The story of Spring Roll Station
     <div class="section-head center reveal">
       <p class="eyebrow">Loved on every platform</p>
       <h2>Rated by the people who eat with us</h2>
-      <p>How our Novena outlet is rated on Google, foodpanda and GrabFood.</p>
+      <p>How we are rated on Google, foodpanda and GrabFood.</p>
     </div>
     <div class="platforms">
-      <div class="platform reveal">
+      <a class="platform platform--link reveal" href="{SKY['reviews']}" target="_blank" rel="noopener" aria-label="Google rating 4.8 from 21 reviews, open in Google Maps">
         <span class="platform__logo"><img src="assets/logos/google.svg" alt="Google" class="platform__logo--google"></span>
-        <b class="counter" data-count="4.7">0.0</b><span class="platform__stars">{''.join('<i class="on">' + STAR + '</i>' for _ in range(4))}<i class="on part">{STAR}</i></span>
-        <span class="platform__name">Google</span><small>40 reviews</small>
-      </div>
+        <b class="counter" data-count="4.8">0.0</b><span class="platform__stars">{''.join('<i class="on">' + STAR + '</i>' for _ in range(4))}<i class="on part part--80">{STAR}</i></span>
+        <span class="platform__name">Google</span><small>21 reviews</small>
+      </a>
       <div class="platform reveal">
         <span class="platform__logo"><img src="assets/logos/foodpanda.svg" alt="foodpanda" class="platform__logo--panda"></span>
         <b class="counter" data-count="4.9">0.0</b><span class="platform__stars">{''.join('<i class="on">' + STAR + '</i>' for _ in range(5))}</span>

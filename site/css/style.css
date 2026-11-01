@@ -557,3 +557,9 @@ body.is-preloading{overflow:hidden}
 .skel--img{aspect-ratio:1/1;border-radius:0}
 .skel-card__body{padding:16px 18px 22px}
 @media (prefers-reduced-motion:reduce){.skel{animation:none}}
+
+/* clickable rating card and a star filled to 80% */
+.platform--link{cursor:pointer;transition:transform .25s ease,box-shadow .25s ease}
+.platform--link:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.platform--link:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.stars i.part--80::after,.platform__stars i.part--80::after{width:20%}
