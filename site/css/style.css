@@ -563,3 +563,60 @@ body.is-preloading{overflow:hidden}
 .platform--link:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
 .platform--link:focus-visible{outline:3px solid var(--red);outline-offset:3px}
 .stars i.part--80::after,.platform__stars i.part--80::after{width:20%}
+
+/* ---------- Checkout: order, details, pay with PayLah!, sent ---------- */
+.cart__head{gap:10px}
+.cart__title{flex:1}
+.cart__back{width:40px;height:40px;border-radius:50%;background:var(--yellow-3);display:none;align-items:center;justify-content:center;flex:none}
+.cart__back svg{width:20px;height:20px}
+.cart[data-step="details"] .cart__back,.cart[data-step="pay"] .cart__back{display:flex}
+.cart__steps{list-style:none;display:flex;gap:6px;padding:12px 24px;border-bottom:1px solid var(--line);margin:0}
+.cart__steps li{flex:1;display:flex;align-items:center;gap:8px;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.cart__steps li i{font-style:normal;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;letter-spacing:0;transition:.25s}
+.cart__steps li.is-on{color:var(--brown)}
+.cart__steps li.is-on i{background:var(--brown);border-color:var(--brown);color:var(--yellow)}
+.cart__steps li.is-now i{background:var(--red);border-color:var(--red);color:#fff}
+.cart[data-step="done"] .cart__steps{display:none}
+.cart__panel{flex:1;overflow:auto;padding:18px 24px;display:none}
+.cart__body{display:none}
+.cart[data-step="order"] .cart__body{display:block}
+.cart[data-step="details"] .cart__details,.cart[data-step="pay"] .cart__pay,.cart[data-step="done"] .cart__done{display:block}
+.cart__details .cart__outlet{margin-top:0}
+.cart__field input.is-missing{border-color:var(--red);animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+#order-wa,#order-new{display:none}
+.cart[data-step="pay"] #order-wa{display:inline-flex}
+.cart[data-step="pay"] #cart-next,.cart[data-step="done"] #cart-next{display:none}
+.cart[data-step="done"] #order-new{display:inline-flex}
+.cart[data-step="done"] .cart__total,.cart[data-step="done"] .cart__foot .cart__fine{display:none}
+.cart:not([data-step="order"]) .cart__clear{display:none}
+.cart__next[disabled],#order-wa.is-disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.pay-amount{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--yellow-3);border-radius:16px;padding:14px 16px}
+.pay-amount span{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--ink-2);width:100%}
+.pay-amount b{font-family:var(--font-display);font-size:2.2rem;font-weight:500;color:var(--red);line-height:1}
+.pay-copy{margin-left:auto;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:8px 12px;border-radius:999px;background:#fff;border:2px solid var(--line);color:var(--brown)}
+.pay-copy:hover{border-color:var(--brown)}
+.pay-qr{display:flex;flex-direction:column;align-items:center;gap:12px;margin:18px 0 6px}
+.pay-qr img{width:min(240px,70%);height:auto;border-radius:14px;border:2px solid var(--line);background:#fff;padding:8px}
+.btn--paylah{background:var(--brown);color:var(--yellow)}
+.btn--paylah:hover{background:#2a190f}
+.pay-steps{margin:14px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:.9rem;color:var(--ink-2)}
+.pay-steps b{color:var(--brown)}
+.pay-code{display:flex;align-items:center;gap:10px;margin-top:16px;padding:12px 16px;border:2px dashed var(--line);border-radius:14px}
+.pay-code span{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--ink-3)}
+.pay-code b{font-size:1.15rem;letter-spacing:.08em}
+.pay-check{display:flex;align-items:center;gap:12px;margin-top:16px;padding:14px 16px;border-radius:14px;background:#fff;border:2px solid var(--line);cursor:pointer;font-weight:700;transition:.2s}
+.pay-check input{width:22px;height:22px;accent-color:var(--red);flex:none}
+.pay-check:has(input:checked){border-color:var(--brown);background:var(--yellow-3)}
+.pay-check.is-missing{border-color:var(--red);animation:shake .35s}
+.cart__done{text-align:center;padding-top:48px}
+.cart__done .done-tick{width:72px;height:72px;border-radius:50%;background:var(--wa);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;animation:bump .5s ease}
+.cart__done .done-tick svg{width:36px;height:36px}
+.cart__done h3{font-family:var(--font-display);font-size:1.8rem;font-weight:500;margin-bottom:10px}
+.cart__done p{color:var(--ink-2);max-width:32ch;margin:0 auto 12px}
+.cart__done .cart__fine{display:block}
+.cart__done a{color:var(--red);font-weight:800;text-decoration:underline}
+@media (max-width:600px){.pay-qr img{width:min(200px,60%)}.pay-amount b{font-size:1.9rem}.cart__steps{padding:10px 20px}}
+.cart__foot .pay-check{display:none;margin:0 0 12px}
+.cart[data-step="pay"] .cart__foot .pay-check{display:flex}
+.cart[data-step="pay"] .cart__total,.cart[data-step="pay"] .cart__foot .cart__fine{display:none}

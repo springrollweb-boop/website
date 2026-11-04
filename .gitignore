@@ -13,3 +13,6 @@ pho/
 site/js/config.js
 .env.local
 .env*.local
+
+# local demo reports, never deployed
+reports/

@@ -1,5 +1,5 @@
-/* Menu page: renders the menu from MENU, opens an item popup for options, keeps a basket
-   and sends the order over WhatsApp. */
+/* Menu page: renders the menu from MENU, opens an item popup for options, keeps a basket,
+   takes payment by PayLah! QR and sends the order over WhatsApp. */
 (async function () {
   'use strict';
   const root = document.getElementById('menu-root');
@@ -180,24 +180,85 @@
   modalOverlay.addEventListener('click', closeItem);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeItem(); });
 
-  /* ----- cart UI ----- */
+  /* ----- cart and checkout: order -> details -> pay (PayLah!) -> sent on WhatsApp ----- */
   const fab = document.getElementById('cart-fab');
   const drawer = document.getElementById('cart');
   const overlay = document.getElementById('cart-overlay');
   const body = drawer.querySelector('.cart__body');
   const totalEl = drawer.querySelector('.cart__total b');
+  const titleEl = drawer.querySelector('.cart__title');
+  const nextBtn = drawer.querySelector('#cart-next');
   const orderBtn = drawer.querySelector('#order-wa');
-  const open = () => { drawer.classList.add('is-open'); overlay.classList.add('is-open'); document.body.style.overflow = 'hidden'; };
+  const payDone = drawer.querySelector('#pay-done');
+  const nameIn = drawer.querySelector('#cust-name');
+  const TITLES = { order: 'Your order', details: 'Your details', pay: 'Pay with PayLah!', done: 'Thank you' };
+  const STEPS = ['order', 'details', 'pay'];
+  let step = 'order';
+  let orderCode = '';
+  let sentMsg = '', sentPhone = '';
+
+  // a short code the customer types in the PayLah! note, so the outlet can match the payment
+  const newCode = () => 'SRS' + String(Math.floor(1000 + Math.random() * 9000));
+  function go(s) {
+    step = s;
+    drawer.dataset.step = s;
+    titleEl.textContent = TITLES[s];
+    const i = STEPS.indexOf(s);
+    drawer.querySelectorAll('.cart__steps li').forEach((li, j) => { li.classList.toggle('is-on', j <= i); li.classList.toggle('is-now', j === i); });
+    nextBtn.textContent = s === 'order' ? 'Checkout' : 'Continue to payment';
+    if (s === 'pay') {
+      if (!orderCode) orderCode = newCode();
+      payDone.checked = false;
+    }
+    fillPay();
+    syncButtons();
+    drawer.querySelectorAll('.cart__body, .cart__panel').forEach((el) => { el.scrollTop = 0; });
+  }
+  function fillPay() {
+    const t = money(total());
+    drawer.querySelector('#pay-amount').textContent = t;
+    drawer.querySelectorAll('[data-amount]').forEach((el) => { el.textContent = t; });
+    drawer.querySelectorAll('[data-code]').forEach((el) => { el.textContent = orderCode; });
+    const o = OUTLETS[drawer.querySelector('input[name="outlet"]:checked').value];
+    drawer.querySelectorAll('[data-outlet]').forEach((el) => { el.textContent = o.full; });
+  }
+  function syncButtons() {
+    const n = count();
+    nextBtn.disabled = !n;
+    const ready = step === 'pay' && payDone.checked && n > 0;
+    orderBtn.classList.toggle('is-disabled', !ready);
+    orderBtn.setAttribute('aria-disabled', String(!ready));
+  }
+
+  const open = () => { if (step === 'done') { go('order'); } drawer.classList.add('is-open'); overlay.classList.add('is-open'); document.body.style.overflow = 'hidden'; };
   const close = () => { drawer.classList.remove('is-open'); overlay.classList.remove('is-open'); document.body.style.overflow = ''; };
   fab.addEventListener('click', open);
   overlay.addEventListener('click', close);
   drawer.querySelector('.cart__close').addEventListener('click', close);
+  drawer.querySelector('.cart__back').addEventListener('click', () => { const i = STEPS.indexOf(step); if (i > 0) go(STEPS[i - 1]); });
   drawer.querySelector('.cart__clear').addEventListener('click', () => { const ids = [...new Set(basket.map((l) => l.id))]; basket = []; save(); ids.forEach(refreshCard); renderCart(); });
   body.addEventListener('click', (e) => {
     const inc = e.target.closest('[data-inc]'), dec = e.target.closest('[data-dec]');
     if (inc) { const l = basket.find((x) => x.key === inc.dataset.inc); if (l) setLineQty(l.key, l.qty + 1); }
     if (dec) { const l = basket.find((x) => x.key === dec.dataset.dec); if (l) setLineQty(l.key, l.qty - 1); }
   });
+  nextBtn.addEventListener('click', () => {
+    if (!count()) return;
+    if (step === 'order') { go('details'); return; }
+    if (step === 'details') {
+      if (!nameIn.value.trim()) { nameIn.classList.add('is-missing'); nameIn.focus(); return; }
+      go('pay');
+    }
+  });
+  nameIn.addEventListener('input', () => nameIn.classList.remove('is-missing'));
+  drawer.querySelectorAll('input[name="outlet"]').forEach((r) => r.addEventListener('change', fillPay));
+  payDone.addEventListener('change', syncButtons);
+  drawer.querySelectorAll('.pay-copy').forEach((b) => b.addEventListener('click', async () => {
+    const text = b.dataset.copy === 'amount' ? total().toFixed(2) : orderCode;
+    const label = b.textContent;
+    try { await navigator.clipboard.writeText(text); b.textContent = 'Copied'; } catch (e) { b.textContent = text; }
+    setTimeout(() => { b.textContent = label; }, 1600);
+  }));
 
   function renderCart() {
     const n = count(), t = total();
@@ -216,15 +277,20 @@
           <div class="cart-line__total">${money(unitPrice(l) * l.qty)}</div></div>`;
       }).join('');
     }
-    orderBtn.style.opacity = n ? '' : '.5';
-    orderBtn.style.pointerEvents = n ? '' : 'none';
+    // the basket changed, so any earlier payment amount no longer applies
+    orderCode = '';
+    if (step !== 'order' && step !== 'done') go('order'); else { fillPay(); syncButtons(); }
   }
 
   orderBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    if (orderBtn.classList.contains('is-disabled')) {
+      if (step === 'pay') { const c = drawer.querySelector('.pay-check'); c.classList.add('is-missing'); setTimeout(() => c.classList.remove('is-missing'), 1200); }
+      return;
+    }
     const outletKey = drawer.querySelector('input[name="outlet"]:checked').value;
     const o = OUTLETS[outletKey];
-    const name = drawer.querySelector('#cust-name').value.trim();
+    const name = nameIn.value.trim();
     const when = drawer.querySelector('#cust-time').value.trim();
     const notes = drawer.querySelector('#cust-notes').value.trim();
     const lines = basket.map((l) => {
@@ -235,13 +301,24 @@
       if (l.note) s += `\n   Note: ${l.note}`;
       return s;
     });
-    let msg = `Hi ${o.full}, I would like to place an order for self collection:\n\n${lines.join('\n')}\n\nTotal: ${money(total())} (no GST, no service charge)`;
+    let msg = `Hi ${o.full}, I would like to place an order for self collection:\n\nOrder code: ${orderCode}\n\n${lines.join('\n')}\n\nTotal: ${money(total())} (no GST, no service charge)\nPayment: paid ${money(total())} by PayLah! with note ${orderCode}`;
     if (name) msg += `\nName: ${name}`;
     if (when) msg += `\nCollection time: ${when}`;
     if (notes) msg += `\nNotes: ${notes}`;
     msg += '\n\nSent from springrollstation.com';
+    sentMsg = msg; sentPhone = o.phone;
     window.open(`https://wa.me/${o.phone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+    go('done');
+  });
+  drawer.querySelector('#order-resend').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (sentMsg) window.open(`https://wa.me/${sentPhone}?text=${encodeURIComponent(sentMsg)}`, '_blank', 'noopener');
+  });
+  drawer.querySelector('#order-new').addEventListener('click', () => {
+    const ids = [...new Set(basket.map((l) => l.id))]; basket = []; save(); ids.forEach(refreshCard);
+    sentMsg = ''; go('order'); renderCart(); close();
   });
 
+  go('order');
   renderCart();
 })();

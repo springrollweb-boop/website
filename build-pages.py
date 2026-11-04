@@ -15,6 +15,7 @@ IC = {
  'ig': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
 }
 
+PAYLAH_URL = 'https://www.dbs.com.sg/personal/mobile/paylink/index.html?tranRef=JkwZPom5uP'
 GRAB_URL = 'https://food.grab.com/sg/en/restaurant/spring-roll-station-novena-regency-delivery/4-C62XRJ5GNT2KHA'
 FOODPANDA_URL = 'https://www.foodpanda.sg/restaurant/uqc0/spring-roll-station-novena-uqc0'
 FOODPANDA_REVIEWS = 'https://www.foodpanda.sg/restaurant/uqc0/spring-roll-station-novena-uqc0/reviews'
@@ -381,7 +382,7 @@ menu = head('Menu | Spring Roll Station', 'Full menu with prices: phở, bánh m
   <div class="wrap">
     <p class="eyebrow">Our menu</p>
     <h1>The price you see is<br>the price you pay</h1>
-    <p>No GST. No service charge. Pick your favourites, then send your order to the outlet of your choice on WhatsApp for self collection. Dine in and take away are always welcome.</p>
+    <p>No GST. No service charge. Pick your favourites, pay with PayLah! and send your order to the outlet of your choice on WhatsApp for self collection. Dine in and take away are always welcome.</p>
   </div>
 </section>
 <div class="menu-nav"><div class="wrap" id="menu-nav"></div></div>
@@ -402,10 +403,15 @@ menu = head('Menu | Spring Roll Station', 'Full menu with prices: phở, bánh m
 </div>
 <button class="cart-fab" id="cart-fab" type="button" aria-label="View your order"><b>0</b><span>View order $0.00</span></button>
 <div class="cart-overlay" id="cart-overlay"></div>
-<aside class="cart" id="cart" aria-label="Your order">
-  <div class="cart__head"><h2>Your order</h2><button class="cart__close" type="button" aria-label="Close">&times;</button></div>
+<aside class="cart" id="cart" aria-label="Your order" data-step="order">
+  <div class="cart__head">
+    <button class="cart__back" type="button" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2 class="cart__title">Your order</h2>
+    <button class="cart__close" type="button" aria-label="Close">&times;</button>
+  </div>
+  <ol class="cart__steps" aria-label="Checkout steps"><li data-s="order"><i>1</i>Order</li><li data-s="details"><i>2</i>Details</li><li data-s="pay"><i>3</i>Pay</li></ol>
   <div class="cart__body"></div>
-  <div class="cart__foot">
+  <div class="cart__panel cart__details">
     <div class="cart__outlet">
       <p>Collect from</p>
       <div class="choice">
@@ -413,14 +419,36 @@ menu = head('Menu | Spring Roll Station', 'Full menu with prices: phở, bánh m
         <label><input type="radio" name="outlet" value="skysuites"><b>Skysuites at Anson</b><span>Till 10pm</span></label>
       </div>
     </div>
-    <div class="form__row">
-      <div class="cart__field"><label for="cust-name">Your name</label><input id="cust-name" type="text" autocomplete="name" placeholder="Name"></div>
-      <div class="cart__field"><label for="cust-time">Collection time</label><input id="cust-time" type="text" placeholder="e.g. 12:30pm"></div>
-    </div>
+    <div class="cart__field"><label for="cust-name">Your name</label><input id="cust-name" type="text" autocomplete="name" placeholder="Name" required></div>
+    <div class="cart__field"><label for="cust-time">Collection time</label><input id="cust-time" type="text" placeholder="e.g. 12:30pm"></div>
     <div class="cart__field"><label for="cust-notes">Notes</label><input id="cust-notes" type="text" placeholder="Sauce choice, less spicy, allergies"></div>
-    <div class="cart__total" style="margin-top:16px"><span>Total</span><b>$0.00</b></div>
-    <p class="cart__fine">No GST, no service charge. Pay at collection. The outlet will confirm your order on WhatsApp.</p>
+  </div>
+  <div class="cart__panel cart__pay" data-paylah="{PAYLAH_URL}">
+    <div class="pay-amount"><span>Amount to pay</span><b id="pay-amount">$0.00</b><button type="button" class="pay-copy" data-copy="amount">Copy amount</button></div>
+    <div class="pay-qr">
+      <img src="assets/pay/paylah-qr.jpg" alt="Spring Roll Station PayLah! QR code" width="540" height="540">
+      <a class="btn btn--paylah" href="{PAYLAH_URL}" target="_blank" rel="noopener">Open PayLah!</a>
+    </div>
+    <ol class="pay-steps">
+      <li>Scan the QR with DBS PayLah!, or tap Open PayLah! on your phone.</li>
+      <li>Pay <b data-amount>$0.00</b> and add your order code <b data-code></b> in the note.</li>
+      <li>Tick the box below and send your order on WhatsApp.</li>
+    </ol>
+    <div class="pay-code"><span>Order code</span><b data-code></b><button type="button" class="pay-copy" data-copy="code">Copy</button></div>
+  </div>
+  <div class="cart__panel cart__done">
+    <div class="done-tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h3>Order sent</h3>
+    <p>Your order <b data-code></b> is on its way to <b data-outlet></b> on WhatsApp. The outlet will check your payment and confirm your order there.</p>
+    <p class="cart__fine">WhatsApp did not open? <a href="#" id="order-resend">Send it again</a>.</p>
+  </div>
+  <div class="cart__foot">
+    <div class="cart__total"><span>Total</span><b>$0.00</b></div>
+    <p class="cart__fine">No GST, no service charge. Pay securely with DBS PayLah!</p>
+    <label class="pay-check"><input type="checkbox" id="pay-done"><span>I have paid <b data-amount>$0.00</b> with PayLah!</span></label>
+    <button class="btn btn--primary cart__next" type="button" id="cart-next">Checkout</button>
     <a class="btn btn--wa" id="order-wa" href="#">{IC['wa']} Send order on WhatsApp</a>
+    <button class="btn btn--primary" type="button" id="order-new">Start a new order</button>
     <button class="cart__clear" type="button">Clear order</button>
   </div>
 </aside>

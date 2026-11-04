@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,0..100&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js');setTimeout(function(){document.documentElement.classList.add('rv-ready')},4000)</script>
-<link rel="stylesheet" href="css/style.css?v=1793532072">
+<link rel="stylesheet" href="css/style.css?v=1793773660">
 
 </head>
 <body><header class="nav nav--solid">
@@ -38,7 +38,7 @@
   <div class="wrap">
     <p class="eyebrow">Our menu</p>
     <h1>The price you see is<br>the price you pay</h1>
-    <p>No GST. No service charge. Pick your favourites, then send your order to the outlet of your choice on WhatsApp for self collection. Dine in and take away are always welcome.</p>
+    <p>No GST. No service charge. Pick your favourites, pay with PayLah! and send your order to the outlet of your choice on WhatsApp for self collection. Dine in and take away are always welcome.</p>
   </div>
 </section>
 <div class="menu-nav"><div class="wrap" id="menu-nav"></div></div>
@@ -70,10 +70,15 @@
 </div>
 <button class="cart-fab" id="cart-fab" type="button" aria-label="View your order"><b>0</b><span>View order $0.00</span></button>
 <div class="cart-overlay" id="cart-overlay"></div>
-<aside class="cart" id="cart" aria-label="Your order">
-  <div class="cart__head"><h2>Your order</h2><button class="cart__close" type="button" aria-label="Close">&times;</button></div>
+<aside class="cart" id="cart" aria-label="Your order" data-step="order">
+  <div class="cart__head">
+    <button class="cart__back" type="button" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2 class="cart__title">Your order</h2>
+    <button class="cart__close" type="button" aria-label="Close">&times;</button>
+  </div>
+  <ol class="cart__steps" aria-label="Checkout steps"><li data-s="order"><i>1</i>Order</li><li data-s="details"><i>2</i>Details</li><li data-s="pay"><i>3</i>Pay</li></ol>
   <div class="cart__body"></div>
-  <div class="cart__foot">
+  <div class="cart__panel cart__details">
     <div class="cart__outlet">
       <p>Collect from</p>
       <div class="choice">
@@ -81,14 +86,36 @@
         <label><input type="radio" name="outlet" value="skysuites"><b>Skysuites at Anson</b><span>Till 10pm</span></label>
       </div>
     </div>
-    <div class="form__row">
-      <div class="cart__field"><label for="cust-name">Your name</label><input id="cust-name" type="text" autocomplete="name" placeholder="Name"></div>
-      <div class="cart__field"><label for="cust-time">Collection time</label><input id="cust-time" type="text" placeholder="e.g. 12:30pm"></div>
-    </div>
+    <div class="cart__field"><label for="cust-name">Your name</label><input id="cust-name" type="text" autocomplete="name" placeholder="Name" required></div>
+    <div class="cart__field"><label for="cust-time">Collection time</label><input id="cust-time" type="text" placeholder="e.g. 12:30pm"></div>
     <div class="cart__field"><label for="cust-notes">Notes</label><input id="cust-notes" type="text" placeholder="Sauce choice, less spicy, allergies"></div>
-    <div class="cart__total" style="margin-top:16px"><span>Total</span><b>$0.00</b></div>
-    <p class="cart__fine">No GST, no service charge. Pay at collection. The outlet will confirm your order on WhatsApp.</p>
+  </div>
+  <div class="cart__panel cart__pay" data-paylah="https://www.dbs.com.sg/personal/mobile/paylink/index.html?tranRef=JkwZPom5uP">
+    <div class="pay-amount"><span>Amount to pay</span><b id="pay-amount">$0.00</b><button type="button" class="pay-copy" data-copy="amount">Copy amount</button></div>
+    <div class="pay-qr">
+      <img src="assets/pay/paylah-qr.jpg" alt="Spring Roll Station PayLah! QR code" width="540" height="540">
+      <a class="btn btn--paylah" href="https://www.dbs.com.sg/personal/mobile/paylink/index.html?tranRef=JkwZPom5uP" target="_blank" rel="noopener">Open PayLah!</a>
+    </div>
+    <ol class="pay-steps">
+      <li>Scan the QR with DBS PayLah!, or tap Open PayLah! on your phone.</li>
+      <li>Pay <b data-amount>$0.00</b> and add your order code <b data-code></b> in the note.</li>
+      <li>Tick the box below and send your order on WhatsApp.</li>
+    </ol>
+    <div class="pay-code"><span>Order code</span><b data-code></b><button type="button" class="pay-copy" data-copy="code">Copy</button></div>
+  </div>
+  <div class="cart__panel cart__done">
+    <div class="done-tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h3>Order sent</h3>
+    <p>Your order <b data-code></b> is on its way to <b data-outlet></b> on WhatsApp. The outlet will check your payment and confirm your order there.</p>
+    <p class="cart__fine">WhatsApp did not open? <a href="#" id="order-resend">Send it again</a>.</p>
+  </div>
+  <div class="cart__foot">
+    <div class="cart__total"><span>Total</span><b>$0.00</b></div>
+    <p class="cart__fine">No GST, no service charge. Pay securely with DBS PayLah!</p>
+    <label class="pay-check"><input type="checkbox" id="pay-done"><span>I have paid <b data-amount>$0.00</b> with PayLah!</span></label>
+    <button class="btn btn--primary cart__next" type="button" id="cart-next">Checkout</button>
     <a class="btn btn--wa" id="order-wa" href="#"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg> Send order on WhatsApp</a>
+    <button class="btn btn--primary" type="button" id="order-new">Start a new order</button>
     <button class="cart__clear" type="button">Clear order</button>
   </div>
 </aside>
@@ -126,11 +153,11 @@
   </div>
   <button class="wa-float__btn" type="button" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></button>
 </div>
-<script src="js/main.js?v=1793532072"></script>
+<script src="js/main.js?v=1793773660"></script>
 <script>document.getElementById('year').textContent=new Date().getFullYear()</script>
-<script src="js/config.js?v=1793532072"></script>
-<script src="js/menu-data.js?v=1793532072"></script>
-<script src="js/menu-source.js?v=1793532072"></script>
-<script src="js/menu.js?v=1793532072"></script>
+<script src="js/config.js?v=1793773660"></script>
+<script src="js/menu-data.js?v=1793773660"></script>
+<script src="js/menu-source.js?v=1793773660"></script>
+<script src="js/menu.js?v=1793773660"></script>
 </body>
 </html>
